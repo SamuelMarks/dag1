@@ -2208,27 +2208,34 @@ func (p *Poset) AtroposTimeSelection(e *Event) error {
 //				"p.GetSuperMajority()": p.GetSuperMajority(),
 //			}). Warnf("Atropos Selection")
 			if maxVal >= p.GetSuperMajority() {
-				clotho.Atropos = true
-				if maxInd < clotho.AtroposTimestamp || 0 == clotho.AtroposTimestamp {
-					if 0 == clotho.AtroposTimestamp {
-						p.accountEvent(&clotho)
+				if !clotho.Atropos {
+					clotho.Atropos = true
+					clotho.FrameReceived = clotho.Frame
+//					if maxInd < clotho.AtroposTimestamp || 0 == clotho.AtroposTimestamp {
+						if 0 == clotho.AtroposTimestamp {
+							p.accountEvent(&clotho)
+						}
+//						clotho.AtroposTimestamp = maxInd
+//						clotho.AtTimes = append(clotho.AtTimes, maxInd)
+//					}
+//					p.AssignAtroposTime(&clotho, clotho.AtroposTimestamp, clotho.Frame)
+					atroposTime := p.AssignAtroposTime2(&clotho, clotho.Frame)
+					clotho.AtroposTimestamp = atroposTime
+					if err := p.Store.SetEvent(clotho); err != nil {
+						p.logger.Fatal(err)
 					}
-					clotho.AtroposTimestamp = maxInd
-					clotho.AtTimes = append(clotho.AtTimes, maxInd)
+
+					peer, ok := p.Participants.ReadByPubKey(clotho.GetCreator())
+					hash := clotho.Hash()
+					p.logger.WithFields(logrus.Fields{
+						"Frame": clotho.Frame,
+						"EventCreator": peer.Message.NetAddr,
+						"Hash": hash.String(),
+						"AtroposTimestamp": clotho.AtroposTimestamp,
+						"atroposTime": atroposTime,
+						"ok": ok,
+					}). Debugf("Atropos")
 				}
-				if err := p.Store.SetEvent(clotho); err != nil {
-					p.logger.Fatal(err)
-				}
-				peer, ok := p.Participants.ReadByPubKey(clotho.GetCreator())
-				hash := clotho.Hash()
-				p.logger.WithFields(logrus.Fields{
-					"Frame": clotho.Frame,
-					"EventCreator": peer.Message.NetAddr,
-					"Hash": hash.String(),
-					"AtroposTimestamp": clotho.AtroposTimestamp,
-					"ok": ok,
-				}). Debugf("Atropos")
-				p.AssignAtroposTime(&clotho, clotho.AtroposTimestamp, clotho.Frame)
 			} else {
 				p.Store.AddTimeTable(e.Hash(), key, maxInd)
 			}
@@ -2238,6 +2245,57 @@ func (p *Poset) AtroposTimeSelection(e *Event) error {
 
 	return nil
 }
+
+// AssignAtroposTime sorts events according Atropos selection rule
+func (p *Poset) AssignAtroposTime2(e *Event, frame int64) int64 {
+	followSelf, followOther := false, false
+	atroposTime := int64(0)
+
+	selfParent, selfErr := p.Store.GetEventBlock(e.SelfParent())
+
+	if nil == selfErr {
+		if 0 == selfParent.FrameReceived/* || selfParent.FrameReceived < frame*/ {
+			selfParent.FrameReceived = frame
+			followSelf = true
+		}
+		if 0 == selfParent.AtroposTimestamp {
+			atroposTime = p.AssignAtroposTime2(&selfParent, frame)
+			selfParent.AtroposTimestamp = atroposTime
+			followSelf = true
+			p.accountEvent(&selfParent)
+		}
+		if followSelf {
+			if err := p.Store.SetEvent(selfParent); err != nil {
+				p.logger.Fatal(err)
+			}
+		}
+	}
+
+	otherParent, otherErr := p.Store.GetEventBlock(e.OtherParent())
+
+	if nil == otherErr {
+		if 0 == otherParent.FrameReceived/* || otherParent.FrameReceived < frame*/ {
+			followOther = true
+			otherParent.FrameReceived = frame
+		}
+		if 0 == otherParent.AtroposTimestamp {
+			atroposTime = p.AssignAtroposTime2(&otherParent, frame)
+			otherParent.AtroposTimestamp = atroposTime
+			followOther = true
+			p.accountEvent(&otherParent)
+		}
+		if followOther {
+			if err := p.Store.SetEvent(otherParent); err != nil {
+				p.logger.Fatal(err)
+			}
+		}
+		atroposTime = otherParent.LamportTimestamp
+	} else { // more likely we are in leaf event here, so it should be equal to LamportTimestamp
+		atroposTime = e.LamportTimestamp
+	}
+	return atroposTime
+}
+
 
 // AssignAtroposTime sorts events according Atropos selection rule
 func (p *Poset) AssignAtroposTime(e *Event, atroposTimestamp int64, frame int64) {
