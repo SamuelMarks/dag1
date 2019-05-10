@@ -9,6 +9,7 @@ import (
 	"math/rand"
 	"sort"
 	"sync"
+	"time"
 
 	"github.com/hashicorp/golang-lru"
 	"github.com/sirupsen/logrus"
@@ -1376,8 +1377,20 @@ func (p *Poset) ProcessDecidedRounds() error {
 	for p.Store.CheckFrameFinality(p.nextFinalFrame) {
 		if p.commitCh != nil {
 //			p.Store.ProcessOutFrame(p.nextFinalFrame, p.commitCh) // FIXME: to be implemented
-			if err := p.Store.ProcessOutFrame(p.nextFinalFrame, p.Address()); err != nil {
+			txs, err := p.Store.ProcessOutFrame(p.nextFinalFrame, p.Address())
+			if err != nil {
 				return err
+			}
+			body := BlockBody{
+				Index:         p.nextFinalFrame,
+				RoundReceived: p.nextFinalFrame,
+				Transactions:  txs,
+			}
+			p.commitCh <- Block{
+				Body:        &body,
+				FrameHash:   []byte{},
+				Signatures:  make(map[string]string),
+				CreatedTime: time.Now().Unix(),
 			}
 //			p.commitCh <- block
 		}

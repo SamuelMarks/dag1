@@ -935,13 +935,15 @@ func (s *BadgerStore) CheckFrameFinality(frame int64) bool {
 	return false
 }
 
-func (s *BadgerStore) ProcessOutFrame(frame int64, address string) error {
+func (s *BadgerStore) ProcessOutFrame(frame int64, address string) ([][]byte, error) {
 	file, err := os.OpenFile(fmt.Sprintf("Node_%v.finality", address), os.O_APPEND | os.O_CREATE | os.O_WRONLY, 0644)
 	if err != nil {
 		fmt.Printf("*** Open  err: %v", err)
-		return err
+		return nil, err
 	}
 	defer file.Close()
+
+	var transactions [][]byte
 
 	r := s.db.Table(EVENTS_TBL).Index(SORT_IDX).Between(
 		[]interface{}{frame, cete.MinValue, cete.MinValue, cete.MinValue},
@@ -953,10 +955,11 @@ func (s *BadgerStore) ProcessOutFrame(frame int64, address string) error {
 			hash := ev.Hash()
 			fmt.Fprintf(file, "%v:%v:%v:%v:%v\n",
 				hash.String(), ev.Frame, ev.FrameReceived, ev.LamportTimestamp, ev.AtroposTimestamp)
+			transactions = append(transactions, ev.Message.Body.Transactions...)
 		}
 	}
 	if r.Error() != cete.ErrEndOfRange {
-		return fmt.Errorf("%v", r.Error())
+		return nil, fmt.Errorf("%v", r.Error())
 	}
-	return nil
+	return transactions, nil
 }

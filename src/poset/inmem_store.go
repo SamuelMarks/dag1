@@ -594,6 +594,6 @@ func (s *InmemStore) CheckFrameFinality(frame int64) bool {
 }
 
 // This is just a stub, yet to bee implemented if needed
-func (s *InmemStore) ProcessOutFrame(frame int64, address string) error {
-	return nil
+func (s *InmemStore) ProcessOutFrame(frame int64, address string) ([][]byte, error) {
+	return nil, nil
 }

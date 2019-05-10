@@ -51,5 +51,5 @@ type Store interface {
 	StateDB() state.Database
 	StateRoot() common.Hash
 	CheckFrameFinality(int64) bool
-	ProcessOutFrame(int64, string) error
+	ProcessOutFrame(int64, string) ([][]byte, error)
 }
