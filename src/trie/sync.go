@@ -4,9 +4,9 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/Fantom-foundation/go-lachesis/src/common"
-	"github.com/Fantom-foundation/go-lachesis/src/common/prque"
-	"github.com/Fantom-foundation/go-lachesis/src/kvdb"
+	"github.com/SamuelMarks/dag1/src/common"
+	"github.com/SamuelMarks/dag1/src/common/prque"
+	"github.com/SamuelMarks/dag1/src/kvdb"
 )
 
 // ErrNotRequested is returned by the trie sync when it's requested to process a

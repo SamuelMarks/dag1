@@ -4,7 +4,7 @@ import (
 	"errors"
 	"sync"
 
-	"github.com/Fantom-foundation/go-lachesis/src/common"
+	"github.com/SamuelMarks/dag1/src/common"
 )
 
 // MemDatabase is a kvbd.Database wrapper of map[string][]byte

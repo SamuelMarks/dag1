@@ -3,8 +3,8 @@ package node
 import (
 	"fmt"
 
-	"github.com/Fantom-foundation/go-lachesis/src/crypto"
-	"github.com/Fantom-foundation/go-lachesis/src/peers"
+	"github.com/SamuelMarks/dag1/src/crypto"
+	"github.com/SamuelMarks/dag1/src/peers"
 )
 
 /*

@@ -6,10 +6,10 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/Fantom-foundation/go-lachesis/src/common"
-	"github.com/Fantom-foundation/go-lachesis/src/poset"
-	"github.com/Fantom-foundation/go-lachesis/src/proxy/proto"
-	"github.com/Fantom-foundation/go-lachesis/src/utils"
+	"github.com/SamuelMarks/dag1/src/common"
+	"github.com/SamuelMarks/dag1/src/poset"
+	"github.com/SamuelMarks/dag1/src/proxy/proto"
+	"github.com/SamuelMarks/dag1/src/utils"
 )
 
 func TestGrpcCalls(t *testing.T) {
@@ -26,7 +26,7 @@ func TestGrpcCalls(t *testing.T) {
 	s, err := NewGrpcAppProxy(addr[0], timeout, logger)
 	assert.NoError(t, err)
 
-	c, err := NewGrpcLachesisProxy(addr[0], logger)
+	c, err := NewGrpcDAG1Proxy(addr[0], logger)
 	assert.NoError(t, err)
 
 	t.Run("#1 Send tx", func(t *testing.T) {
@@ -130,7 +130,7 @@ func TestGrpcReConnection(t *testing.T) {
 	addr := utils.GetUnusedNetAddr(1, t)
 	logger := common.NewTestLogger(t)
 
-	c, err := NewGrpcLachesisProxy(addr[0], logger)
+	c, err := NewGrpcDAG1Proxy(addr[0], logger)
 	if assert.NoError(t, err) {
 		assert.NotNil(t, c)
 	}
@@ -183,7 +183,7 @@ func TestGrpcMaxMsgSize(t *testing.T) {
 	s, err := NewGrpcAppProxy(addr, timeout, logger)
 	assert.NoError(t, err)
 
-	c, err := NewGrpcLachesisProxy(addr, logger)
+	c, err := NewGrpcDAG1Proxy(addr, logger)
 	assert.NoError(t, err)
 
 	largeData := make([]byte, largeSize)

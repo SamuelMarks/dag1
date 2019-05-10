@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/Fantom-foundation/go-lachesis/src/node"
-	"github.com/Fantom-foundation/go-lachesis/src/poset"
+	"github.com/SamuelMarks/dag1/src/node"
+	"github.com/SamuelMarks/dag1/src/poset"
 	"github.com/sirupsen/logrus"
 )
 

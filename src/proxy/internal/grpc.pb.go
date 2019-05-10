@@ -685,45 +685,45 @@ var _ grpc.ClientConn
 // is compatible with the grpc package it is being compiled against.
 const _ = grpc.SupportPackageIsVersion4
 
-// LachesisNodeClient is the client API for LachesisNode service.
+// DAG1NodeClient is the client API for DAG1Node service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
-type LachesisNodeClient interface {
-	Connect(ctx context.Context, opts ...grpc.CallOption) (LachesisNode_ConnectClient, error)
+type DAG1NodeClient interface {
+	Connect(ctx context.Context, opts ...grpc.CallOption) (DAG1Node_ConnectClient, error)
 }
 
-type lachesisNodeClient struct {
+type dag1NodeClient struct {
 	cc *grpc.ClientConn
 }
 
-func NewLachesisNodeClient(cc *grpc.ClientConn) LachesisNodeClient {
-	return &lachesisNodeClient{cc}
+func NewDAG1NodeClient(cc *grpc.ClientConn) DAG1NodeClient {
+	return &dag1NodeClient{cc}
 }
 
-func (c *lachesisNodeClient) Connect(ctx context.Context, opts ...grpc.CallOption) (LachesisNode_ConnectClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_LachesisNode_serviceDesc.Streams[0], "/internal.LachesisNode/Connect", opts...)
+func (c *dag1NodeClient) Connect(ctx context.Context, opts ...grpc.CallOption) (DAG1Node_ConnectClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_DAG1Node_serviceDesc.Streams[0], "/internal.DAG1Node/Connect", opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &lachesisNodeConnectClient{stream}
+	x := &dag1NodeConnectClient{stream}
 	return x, nil
 }
 
-type LachesisNode_ConnectClient interface {
+type DAG1Node_ConnectClient interface {
 	Send(*ToServer) error
 	Recv() (*ToClient, error)
 	grpc.ClientStream
 }
 
-type lachesisNodeConnectClient struct {
+type dag1NodeConnectClient struct {
 	grpc.ClientStream
 }
 
-func (x *lachesisNodeConnectClient) Send(m *ToServer) error {
+func (x *dag1NodeConnectClient) Send(m *ToServer) error {
 	return x.ClientStream.SendMsg(m)
 }
 
-func (x *lachesisNodeConnectClient) Recv() (*ToClient, error) {
+func (x *dag1NodeConnectClient) Recv() (*ToClient, error) {
 	m := new(ToClient)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -731,34 +731,34 @@ func (x *lachesisNodeConnectClient) Recv() (*ToClient, error) {
 	return m, nil
 }
 
-// LachesisNodeServer is the server API for LachesisNode service.
-type LachesisNodeServer interface {
-	Connect(LachesisNode_ConnectServer) error
+// DAG1NodeServer is the server API for DAG1Node service.
+type DAG1NodeServer interface {
+	Connect(DAG1Node_ConnectServer) error
 }
 
-func RegisterLachesisNodeServer(s *grpc.Server, srv LachesisNodeServer) {
-	s.RegisterService(&_LachesisNode_serviceDesc, srv)
+func RegisterDAG1NodeServer(s *grpc.Server, srv DAG1NodeServer) {
+	s.RegisterService(&_DAG1Node_serviceDesc, srv)
 }
 
-func _LachesisNode_Connect_Handler(srv interface{}, stream grpc.ServerStream) error {
-	return srv.(LachesisNodeServer).Connect(&lachesisNodeConnectServer{stream})
+func _DAG1Node_Connect_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(DAG1NodeServer).Connect(&dag1NodeConnectServer{stream})
 }
 
-type LachesisNode_ConnectServer interface {
+type DAG1Node_ConnectServer interface {
 	Send(*ToClient) error
 	Recv() (*ToServer, error)
 	grpc.ServerStream
 }
 
-type lachesisNodeConnectServer struct {
+type dag1NodeConnectServer struct {
 	grpc.ServerStream
 }
 
-func (x *lachesisNodeConnectServer) Send(m *ToClient) error {
+func (x *dag1NodeConnectServer) Send(m *ToClient) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func (x *lachesisNodeConnectServer) Recv() (*ToServer, error) {
+func (x *dag1NodeConnectServer) Recv() (*ToServer, error) {
 	m := new(ToServer)
 	if err := x.ServerStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -766,14 +766,14 @@ func (x *lachesisNodeConnectServer) Recv() (*ToServer, error) {
 	return m, nil
 }
 
-var _LachesisNode_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "internal.LachesisNode",
-	HandlerType: (*LachesisNodeServer)(nil),
+var _DAG1Node_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "internal.DAG1Node",
+	HandlerType: (*DAG1NodeServer)(nil),
 	Methods:     []grpc.MethodDesc{},
 	Streams: []grpc.StreamDesc{
 		{
 			StreamName:    "Connect",
-			Handler:       _LachesisNode_Connect_Handler,
+			Handler:       _DAG1Node_Connect_Handler,
 			ServerStreams: true,
 			ClientStreams: true,
 		},

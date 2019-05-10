@@ -1,7 +1,7 @@
 package main
 
 import (
-	cmd "github.com/Fantom-foundation/go-lachesis/cmd/dummy/commands"
+	cmd "github.com/SamuelMarks/dag1/cmd/dummy/commands"
 	_ "net/http/pprof"
 	"os"
 )

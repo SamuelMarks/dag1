@@ -5,7 +5,7 @@ import (
 )
 
 const (
-	// Gossiping is the initial state of a Lachesis node.
+	// Gossiping is the initial state of a DAG1 node.
 	Gossiping state = iota
 	// CatchingUp is the fast forward state
 	CatchingUp

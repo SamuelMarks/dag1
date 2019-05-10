@@ -1,8 +1,8 @@
 package crypto
 
 import (
-	"github.com/Fantom-foundation/go-lachesis/src/common"
-	"github.com/Fantom-foundation/go-lachesis/src/crypto/sha3"
+	"github.com/SamuelMarks/dag1/src/common"
+	"github.com/SamuelMarks/dag1/src/crypto/sha3"
 )
 
 // Keccak256 calculates and returns the Keccak256 hash of the input data.

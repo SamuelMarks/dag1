@@ -1,12 +1,12 @@
 .. _consensus:
 
-Lachesis Consensus
+DAG1 Consensus
 ================
 
-Lachesis is based on our own interpretation of Poset, but also builds upon 
+DAG1 is based on our own interpretation of Poset, but also builds upon 
 other techniques that facilitate coordination within distributed systems. Here, 
 we give a high-level overview of the most important concepts that inspired the 
-development of Lachesis and how they all fit together. This document is also 
+development of DAG1 and how they all fit together. This document is also 
 intended for a non-technical audience.
 
 Common Knowledge
@@ -43,7 +43,7 @@ what is needed is common knowledge.
 The dilemma is that pure common knowledge is not attainable in practical 
 situations; particularly in asynchronous message passing systems with unreliable 
 transports (like the two generals). Hence, we have to relax our requirements and 
-rely on approximations of common knowledge. In Lachesis, we drop the simultaneity 
+rely on approximations of common knowledge. In DAG1, we drop the simultaneity 
 and allow participants to decide at different times.
 
 Gossip About Gossip
@@ -107,7 +107,7 @@ issued by all other processes with timestamps less than or equal to T.
 However, the resulting algorithm requires the active participation of all the 
 processes. A process must know all the commands issued by other processes, so 
 that the failure of a single process will make it impossible for any other 
-process to execute commands, thereby halting the system. Lachesis implements 
+process to execute commands, thereby halting the system. DAG1 implements 
 Lamport Timestamps on top of the poset, but with added steps for Byzantine 
 Fault Tolerance.
 
@@ -176,7 +176,7 @@ algorithm are best described in the `original poset whitepaper <https://www.swir
 
 So this algorithm doesn't need a leader. All participants run the algorithm 
 locally, process rounds at their own speed, and end up outputting the same 
-batches of ordered events. Lachesis takes these batches of events and projects 
+batches of ordered events. DAG1 takes these batches of events and projects 
 them onto a blockchain. 
 
 Blockchain
@@ -194,9 +194,9 @@ described in :ref:`blockchain`.
 
 .. image:: assets/dag_bx.png
 
-So the output of Lachesis is a sequence of blocks; the interface between the app 
-and Lachesis is a blockchain interface. This makes it convenient for developers to
-plug into Lachesis, and provides a base for building light-clients and cross-chain 
+So the output of DAG1 is a sequence of blocks; the interface between the app 
+and DAG1 is a blockchain interface. This makes it convenient for developers to
+plug into DAG1, and provides a base for building light-clients and cross-chain 
 communication protocols. We believe that the p2p internet is moving towards a 
 landscape of interconnected blockchains, the so called internet of blockchains, 
-an Lachesis is built with this in mind.
+an DAG1 is built with this in mind.

@@ -3,7 +3,7 @@
 // FIX IT: this is a stub to allow build on plan9.
 //         Need to be implemented according plan9 system facilities.
 
-package lachesis_log
+package dag1_log
 
 import (
 	"github.com/sirupsen/logrus"

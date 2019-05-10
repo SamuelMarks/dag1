@@ -9,8 +9,8 @@ import (
 	_ "sync" // required for TODO
 	"time"
 
-	"github.com/Fantom-foundation/go-lachesis/src/peers"
-	"github.com/Fantom-foundation/go-lachesis/src/proxy"
+	"github.com/SamuelMarks/dag1/src/peers"
+	"github.com/SamuelMarks/dag1/src/proxy"
 	"github.com/sirupsen/logrus"
 )
 
@@ -19,7 +19,7 @@ func PingNodesN(participants []*peers.Peer, p peers.PubKeyPeers, n uint64, delay
 	// pause before shooting test transactions
 	time.Sleep(time.Duration(delay) * time.Second)
 
-	proxies := make(map[uint64]*proxy.GrpcLachesisProxy)
+	proxies := make(map[uint64]*proxy.GrpcDAG1Proxy)
 	for _, participant := range participants {
 		node := p[participant.Message.PubKeyHex]
 		if node.Message.NetAddr == "" {
@@ -33,12 +33,12 @@ func PingNodesN(participants []*peers.Peer, p peers.PubKeyPeers, n uint64, delay
 			fmt.Printf("Unable to create port:\t\t\t%s (id=%d)\n", participant.Message.NetAddr, node.ID)
 		}
 		addr := fmt.Sprintf("%s:%d", hostPort[0], port-3000 /*9000*/)
-		lachesisProxy, err := proxy.NewGrpcLachesisProxy(addr, logger)
+		dag1Proxy, err := proxy.NewGrpcDAG1Proxy(addr, logger)
 		if err != nil {
 			fmt.Printf("error:\t\t\t%s\n", err.Error())
-			fmt.Printf("Failed to create WebsocketLachesisProxy:\t\t\t%s (id=%d)\n", participant.Message.NetAddr, node.ID)
+			fmt.Printf("Failed to create WebsocketDAG1Proxy:\t\t\t%s (id=%d)\n", participant.Message.NetAddr, node.ID)
 		}
-		proxies[node.ID] = lachesisProxy
+		proxies[node.ID] = dag1Proxy
 	}
 	for iteration := uint64(0); iteration < n; iteration++ {
 		participant := participants[rand.Intn(len(participants))]
@@ -56,15 +56,15 @@ func PingNodesN(participants []*peers.Peer, p peers.PubKeyPeers, n uint64, delay
 		}*/
 	}
 
-	for _, lachesisProxy := range proxies {
-		if err := lachesisProxy.Close(); err != nil {
+	for _, dag1Proxy := range proxies {
+		if err := dag1Proxy.Close(); err != nil {
 			logger.Fatal(err)
 		}
 	}
 	fmt.Println("Pinging stopped after ", n, " iterations")
 }
 
-func transact(proxy *proxy.GrpcLachesisProxy, proxyAddr string, iteration uint64) (string, error) {
+func transact(proxy *proxy.GrpcDAG1Proxy, proxyAddr string, iteration uint64) (string, error) {
 
 	// Ethereum txns are ~108 bytes. Bitcoin txns are ~250 bytes.
 	// A good assumption is to make txns 120 bytes in size.

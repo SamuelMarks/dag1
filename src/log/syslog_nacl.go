@@ -3,7 +3,7 @@
 // FIX IT: this is a stub to allow build on nacl.
 //         Need to be implemented according nacl system facilities.
 
-package lachesis_log
+package dag1_log
 
 import (
 	"github.com/sirupsen/logrus"

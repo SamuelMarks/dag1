@@ -7,12 +7,12 @@ import (
 	"github.com/dgraph-io/badger"
 	"github.com/1lann/cete"
 
-	"github.com/Fantom-foundation/go-lachesis/src/common"
-	"github.com/Fantom-foundation/go-lachesis/src/common/hexutil"
-//	"github.com/Fantom-foundation/go-lachesis/src/kvdb"
-	"github.com/Fantom-foundation/go-lachesis/src/peers"
-	"github.com/Fantom-foundation/go-lachesis/src/pos"
-	"github.com/Fantom-foundation/go-lachesis/src/state"
+	"github.com/SamuelMarks/dag1/src/common"
+	"github.com/SamuelMarks/dag1/src/common/hexutil"
+//	"github.com/SamuelMarks/dag1/src/kvdb"
+	"github.com/SamuelMarks/dag1/src/peers"
+	"github.com/SamuelMarks/dag1/src/pos"
+	"github.com/SamuelMarks/dag1/src/state"
 )
 
 const (

@@ -10,10 +10,10 @@ import (
 	"math/rand"
 	"github.com/sirupsen/logrus"
 
-	"github.com/Fantom-foundation/go-lachesis/src/crypto"
-	"github.com/Fantom-foundation/go-lachesis/src/log"
-	"github.com/Fantom-foundation/go-lachesis/src/peers"
-	"github.com/Fantom-foundation/go-lachesis/src/poset"
+	"github.com/SamuelMarks/dag1/src/crypto"
+	"github.com/SamuelMarks/dag1/src/log"
+	"github.com/SamuelMarks/dag1/src/peers"
+	"github.com/SamuelMarks/dag1/src/poset"
 )
 
 const (
@@ -60,7 +60,7 @@ func NewCore(id uint64, key *ecdsa.PrivateKey, participants *peers.Peers,
 	if logger == nil {
 		logger = logrus.New()
 		logger.Level = logrus.DebugLevel
-		lachesis_log.NewLocal(logger, logger.Level.String())
+		dag1_log.NewLocal(logger, logger.Level.String())
 	}
 	n, ok := participants.ReadByID(id)
 	var logEntry *logrus.Entry

@@ -56,7 +56,7 @@ Option 2: Host own local node;
 
 ### Step 0 Docker
 
-Create an 3 node lachesis cluster with:
+Create an 3 node dag1 cluster with:
 
 n=3 BUILD\_DIR="$PWD" ./docker/builder/scale.bash
 
@@ -68,8 +68,8 @@ n=3 BUILD\_DIR="$PWD" ./docker/builder/scale.bash
 
 -   glider base Docker Image with:
 
--   git clone https://github.com/Fantom-foundation/evm \# or \`cd
-    > $GOPATH/src/github.com/Fantom-foundation\`  
+-   git clone https://github.com/SamuelMarks/evm \# or \`cd
+    > $GOPATH/src/github.com/SamuelMarks\`  
     > cd evm/docker/glider  
     > docker build --compress --squash --force-rm --tag "${PWD\#\#\*/}"
     > .
@@ -104,15 +104,15 @@ source \~/.profile
 
 ### Step 2 Clone Repo
 
-mkdir -p $GOPATH/src/github.com/Fantom-foundation/
+mkdir -p $GOPATH/src/github.com/SamuelMarks/
 
-cd $GOPATH/src/github.com/Fantom-foundation
+cd $GOPATH/src/github.com/SamuelMarks
 
-git clone https://github.com/Fantom-foundation/go-lachesis.git
+git clone https://github.com/SamuelMarks/dag1.git
 
 export GOPATH=$HOME/work
 
-cd $GOPATH/src/github.com/Fantom-foundation/go-lachesis
+cd $GOPATH/src/github.com/SamuelMarks/dag1
 
 curl https://glide.sh/get \| sh
 
@@ -145,11 +145,11 @@ mkdir -p $HOME/work/src/github.com/user/
 
 cd $HOME/work/src/github.com/user/
 
-git clone https://github.com/Fantom-foundation/go-lachesis.git
+git clone https://github.com/SamuelMarks/dag1.git
 
 apt-get install -y build-essential
 
-\#Lachesis
+\#DAG1
 
 go get github.com/dgraph-io/badger
 
@@ -159,15 +159,15 @@ go get gopkg.in/urfave/cli.v1
 
 make build
 
-\#Lachesis
+\#DAG1
 
-./build/lachesis keygen
+./build/dag1 keygen
 
-mkdir -p /root/.lachesis/
+mkdir -p /root/.dag1/
 
-vi /root/.lachesis/priv\_key.pem
+vi /root/.dag1/priv\_key.pem
 
-vi /root/.lachesis/peers.json
+vi /root/.dag1/peers.json
 
 \[
 
@@ -207,7 +207,7 @@ B4FBE9A46118EB549753B76B18243369E0475A319989F06879CFE19"
 
 The default data dir is currently;
 
-$HOME/.lachesis/
+$HOME/.dag1/
 
 In this folder it expects two files;
 
@@ -259,22 +259,22 @@ To run the nodes you execute;
 
 \#service node
 
-./build/lachesis run -node\_addr="ip:port" -service\_addr="ip:port"
+./build/dag1 run -node\_addr="ip:port" -service\_addr="ip:port"
 
 \#proxy node
 
-./build/lachesis run -node\_addr="ip:port" -proxy\_addr="ip:port"
+./build/dag1 run -node\_addr="ip:port" -proxy\_addr="ip:port"
 -client\_addr="ip:port"
 
 #### Example Commands
 
 \#service node
 
-./build/lachesis run -node\_addr="ip:12000" -service\_addr="ip:8000"
+./build/dag1 run -node\_addr="ip:12000" -service\_addr="ip:8000"
 
 \#proxy node
 
-./build/lachesis run -node\_addr="ip:12000" -proxy\_addr="ip:9000"
+./build/dag1 run -node\_addr="ip:12000" -proxy\_addr="ip:9000"
 -client\_addr="ip:9000"
 
 You can subscribe to service\_addr for http requests, so in above

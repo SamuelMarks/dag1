@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/Fantom-foundation/go-lachesis/src/dummy"
+	"github.com/SamuelMarks/dag1/src/dummy"
 	"github.com/rifflock/lfshook"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
@@ -21,7 +21,7 @@ var (
 func init() {
 	RootCmd.Flags().String("name", config.Name, "Client name")
 	RootCmd.Flags().String("client-listen", config.ClientAddr, "Listen IP:Port of Dummy Socket Client")
-	RootCmd.Flags().String("proxy-connect", config.ProxyAddr, "IP:Port to connect to Lachesis proxy")
+	RootCmd.Flags().String("proxy-connect", config.ProxyAddr, "IP:Port to connect to DAG1 proxy")
 	RootCmd.Flags().Bool("discard", config.Discard, "discard output to stderr and stdout")
 	RootCmd.Flags().String("log", config.LogLevel, "debug, info, warn, error, fatal, panic")
 }
@@ -29,7 +29,7 @@ func init() {
 //RootCmd is the root command for Dummy
 var RootCmd = &cobra.Command{
 	Use:     "dummy",
-	Short:   "Dummy Socket Client for Lachesis",
+	Short:   "Dummy Socket Client for DAG1",
 	PreRunE: loadConfig,
 	RunE:    runDummy,
 }

@@ -3,15 +3,15 @@ package dummy
 import (
 	"github.com/sirupsen/logrus"
 
-	"github.com/Fantom-foundation/go-lachesis/src/proxy"
+	"github.com/SamuelMarks/dag1/src/proxy"
 )
 
-// DummyClient is a implementation of the dummy app. Lachesis and the
+// DummyClient is a implementation of the dummy app. DAG1 and the
 // app run in separate processes and communicate through proxy
 type DummyClient struct {
 	logger        *logrus.Logger
 	state         proxy.ProxyHandler
-	lachesisProxy proxy.LachesisProxy
+	dag1Proxy proxy.DAG1Proxy
 }
 
 // NewInmemDummyApp constructor
@@ -22,22 +22,22 @@ func NewInmemDummyApp(logger *logrus.Logger) proxy.AppProxy {
 
 // NewDummySocketClient constructor
 func NewDummySocketClient(addr string, logger *logrus.Logger) (*DummyClient, error) {
-	lachesisProxy, err := proxy.NewGrpcLachesisProxy(addr, logger)
+	dag1Proxy, err := proxy.NewGrpcDAG1Proxy(addr, logger)
 	if err != nil {
 		return nil, err
 	}
 
-	return NewDummyClient(lachesisProxy, nil, logger)
+	return NewDummyClient(dag1Proxy, nil, logger)
 }
 
 // NewDummyClient instantiates an implementation of the dummy app
-func NewDummyClient(lachesisProxy proxy.LachesisProxy, handler proxy.ProxyHandler, logger *logrus.Logger) (c *DummyClient, err error) {
+func NewDummyClient(dag1Proxy proxy.DAG1Proxy, handler proxy.ProxyHandler, logger *logrus.Logger) (c *DummyClient, err error) {
 	// state := NewState(logger)
 
 	c = &DummyClient{
 		logger:        logger,
 		state:         handler,
-		lachesisProxy: lachesisProxy,
+		dag1Proxy: dag1Proxy,
 	}
 
 	if handler == nil {
@@ -48,7 +48,7 @@ func NewDummyClient(lachesisProxy proxy.LachesisProxy, handler proxy.ProxyHandle
 		for {
 			select {
 
-			case b, ok := <-lachesisProxy.CommitCh():
+			case b, ok := <-dag1Proxy.CommitCh():
 				if !ok {
 					return
 				}
@@ -56,7 +56,7 @@ func NewDummyClient(lachesisProxy proxy.LachesisProxy, handler proxy.ProxyHandle
 				hash, err := handler.CommitHandler(b.Block)
 				b.Respond(hash, err)
 
-			case r, ok := <-lachesisProxy.RestoreCh():
+			case r, ok := <-dag1Proxy.RestoreCh():
 				if !ok {
 					return
 				}
@@ -64,7 +64,7 @@ func NewDummyClient(lachesisProxy proxy.LachesisProxy, handler proxy.ProxyHandle
 				hash, err := handler.RestoreHandler(r.Snapshot)
 				r.Respond(hash, err)
 
-			case s, ok := <-lachesisProxy.SnapshotRequestCh():
+			case s, ok := <-dag1Proxy.SnapshotRequestCh():
 				if !ok {
 					return
 				}
@@ -80,5 +80,5 @@ func NewDummyClient(lachesisProxy proxy.LachesisProxy, handler proxy.ProxyHandle
 
 // SubmitTx sends a transaction to node via proxy
 func (c *DummyClient) SubmitTx(tx []byte) error {
-	return c.lachesisProxy.SubmitTx(tx)
+	return c.dag1Proxy.SubmitTx(tx)
 }

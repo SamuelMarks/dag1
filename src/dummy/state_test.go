@@ -3,8 +3,8 @@ package dummy
 import (
 	"testing"
 
-	"github.com/Fantom-foundation/go-lachesis/src/common"
-	"github.com/Fantom-foundation/go-lachesis/src/proxy"
+	"github.com/SamuelMarks/dag1/src/common"
+	"github.com/SamuelMarks/dag1/src/proxy"
 )
 
 func TestProxyHandlerImplementation(t *testing.T) {

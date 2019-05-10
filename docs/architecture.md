@@ -399,7 +399,7 @@ nodes.
 This would decrease our finality from *g+2* to *g* leaning us closer to
 O(n)
 
-The time complexity of the Lachesis algorithm means that a much faster
+The time complexity of the DAG1 algorithm means that a much faster
 performance speed can be achieved with O(N Log(N)).
 
 The performance speed according to the time complexity O(N2) and O(N
@@ -476,7 +476,7 @@ mechanism whereby we improve our option for clotho selection.
 
 **Architecture: Cost Function**
 
-A key difference in the Lachesis protocol is the in-height vector
+A key difference in the DAG1 protocol is the in-height vector
 selection of Nodes known as the Cost Function.
 
 The following is an excerpt from our technical paper;
@@ -535,7 +535,7 @@ O(n), where n is the number of nodes.
 
 After the reference node is selected, two nodes communicate and share
 information. A node creates an event block by referring to the top event
-block of the reference node. The Lachesis protocol communicates
+block of the reference node. The DAG1 protocol communicates
 asynchronously.
 
 <img src="./architecture/image7.png" style="width:4.82292in;height:3.0625in" />
@@ -770,7 +770,7 @@ Not surprising, since we know throughput increases for the selection of
 
 **Appendix A**
 
-Network latency will reduce tps. The time complexity of the Lachesis
+Network latency will reduce tps. The time complexity of the DAG1
 algorithm means that a much faster performance speed can be achieved
 with O(N Log(N)).
 

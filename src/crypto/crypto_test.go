@@ -12,7 +12,7 @@ import (
 
 func TestPem(t *testing.T) {
 	// Create a test dir
-	dir, err := ioutil.TempDir("test_data", "lachesis")
+	dir, err := ioutil.TempDir("test_data", "dag1")
 	if err != nil {
 		t.Fatalf("err: %v ", err)
 	}

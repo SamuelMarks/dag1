@@ -18,13 +18,13 @@ import (
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 
-	"github.com/Fantom-foundation/go-lachesis/src/poset"
-	"github.com/Fantom-foundation/go-lachesis/src/proxy/internal"
+	"github.com/SamuelMarks/dag1/src/poset"
+	"github.com/SamuelMarks/dag1/src/proxy/internal"
 )
 
 var ErrNoAnswers = errors.New("no answers")
 
-type ClientStream internal.LachesisNode_ConnectServer
+type ClientStream internal.DAG1Node_ConnectServer
 
 //GrpcAppProxy implements the AppProxy interface
 type GrpcAppProxy struct {
@@ -67,7 +67,7 @@ func NewGrpcAppProxy(bindAddr string, timeout time.Duration, logger *logrus.Logg
 	p.server = grpc.NewServer(
 		grpc.MaxRecvMsgSize(math.MaxInt32),
 		grpc.MaxSendMsgSize(math.MaxInt32))
-	internal.RegisterLachesisNodeServer(p.server, p)
+	internal.RegisterDAG1NodeServer(p.server, p)
 
 	go func() {
 		if err := p.server.Serve(p.listener); err != nil {
@@ -93,8 +93,8 @@ func (p *GrpcAppProxy) Close() error {
  * network interface:
  */
 
-// Connect implements gRPC-server interface: LachesisNodeServer
-func (p *GrpcAppProxy) Connect(stream internal.LachesisNode_ConnectServer) error {
+// Connect implements gRPC-server interface: DAG1NodeServer
+func (p *GrpcAppProxy) Connect(stream internal.DAG1Node_ConnectServer) error {
 	// save client's stream for writing
 	p.newClients <- stream
 	p.logger.Debugf("client connected")

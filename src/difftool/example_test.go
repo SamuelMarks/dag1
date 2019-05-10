@@ -6,7 +6,7 @@ import (
 
 	"github.com/sirupsen/logrus"
 
-	"github.com/Fantom-foundation/go-lachesis/src/node"
+	"github.com/SamuelMarks/dag1/src/node"
 )
 
 // Example illustrates nodes comparing.

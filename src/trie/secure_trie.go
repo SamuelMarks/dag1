@@ -5,7 +5,7 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	"github.com/Fantom-foundation/go-lachesis/src/common"
+	"github.com/SamuelMarks/dag1/src/common"
 )
 
 // SecureTrie wraps a trie with key hashing. In a secure trie, all

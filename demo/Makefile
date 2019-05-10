@@ -8,10 +8,10 @@ txs = 10
 
 up: conf start watch
 
-# build lachesis and dummy docker images for local registry
+# build dag1 and dummy docker images for local registry
 build:
 	$(DOCKER) build -f ./Dockerfile.dummy -t go-dummy ../
-	$(DOCKER) build -f ./Dockerfile.node -t go-lachesis ../
+	$(DOCKER) build -f ./Dockerfile.node -t dag1 ../
 
 # generate keys and peers.json file
 conf: 

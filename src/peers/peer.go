@@ -4,7 +4,7 @@ import (
 	"encoding/hex"
 	"sync"
 
-	"github.com/Fantom-foundation/go-lachesis/src/common"
+	"github.com/SamuelMarks/dag1/src/common"
 )
 
 const (

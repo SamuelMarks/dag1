@@ -7,10 +7,10 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/Fantom-foundation/go-lachesis/src/common"
-	"github.com/Fantom-foundation/go-lachesis/src/crypto"
-	"github.com/Fantom-foundation/go-lachesis/src/peers"
-	"github.com/Fantom-foundation/go-lachesis/src/poset"
+	"github.com/SamuelMarks/dag1/src/common"
+	"github.com/SamuelMarks/dag1/src/crypto"
+	"github.com/SamuelMarks/dag1/src/peers"
+	"github.com/SamuelMarks/dag1/src/poset"
 )
 
 func initCores(n int, t *testing.T) ([]*Core,

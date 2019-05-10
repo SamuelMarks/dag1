@@ -6,9 +6,9 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/Fantom-foundation/go-lachesis/src/common"
-	"github.com/Fantom-foundation/go-lachesis/src/crypto"
-	"github.com/Fantom-foundation/go-lachesis/src/kvdb"
+	"github.com/SamuelMarks/dag1/src/common"
+	"github.com/SamuelMarks/dag1/src/crypto"
+	"github.com/SamuelMarks/dag1/src/kvdb"
 )
 
 func newEmptySecure() *SecureTrie {

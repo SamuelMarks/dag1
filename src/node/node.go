@@ -14,10 +14,10 @@ import (
 
 	"github.com/sirupsen/logrus"
 
-	"github.com/Fantom-foundation/go-lachesis/src/peer"
-	"github.com/Fantom-foundation/go-lachesis/src/peers"
-	"github.com/Fantom-foundation/go-lachesis/src/poset"
-	"github.com/Fantom-foundation/go-lachesis/src/proxy"
+	"github.com/SamuelMarks/dag1/src/peer"
+	"github.com/SamuelMarks/dag1/src/peers"
+	"github.com/SamuelMarks/dag1/src/poset"
+	"github.com/SamuelMarks/dag1/src/proxy"
 )
 
 // Node struct that keeps all high level node functions
@@ -161,7 +161,7 @@ func (n *Node) Run(gossip bool) {
 
 		switch state {
 		case Gossiping:
-			n.lachesis(gossip)
+			n.dag1(gossip)
 		case CatchingUp:
 			if err := n.fastForward(); err != nil {
 				n.logger.WithField("state", "fastForward").WithError(err).Debug("Run(gossip bool)")
@@ -218,11 +218,11 @@ func (n *Node) doBackgroundWork() {
 	}
 }
 
-// lachesis is interrupted when a gossip function, launched asynchronously, changes
+// dag1 is interrupted when a gossip function, launched asynchronously, changes
 // the state from Gossiping to CatchingUp, or when the node is shutdown.
 // Otherwise, it processes RPC requests, periodicaly initiates gossip while there
 // is something to gossip about, or waits.
-func (n *Node) lachesis(gossip bool) {
+func (n *Node) dag1(gossip bool) {
 	returnCh := make(chan struct{}, 100)
 	for {
 		select {
@@ -243,7 +243,7 @@ func (n *Node) lachesis(gossip bool) {
 				n.goFunc(func() {
 					n.gossipJobs.increment()
 					if err := n.gossip(returnCh); err != nil {
-						n.logger.WithError(err).Debug("node::lachesis(bool)::n.controlTimer.tickCh")
+						n.logger.WithError(err).Debug("node::dag1(bool)::n.controlTimer.tickCh")
 					}
 					n.gossipJobs.decrement()
 				})
@@ -409,7 +409,7 @@ func (n *Node) processFastForwardRequest(rpc *peer.RPC, cmd *peer.FastForwardReq
 }
 
 // This function is usually called in a go-routine and needs to inform the
-// calling routine (usually the lachesis routine) when it is time to exit the
+// calling routine (usually the dag1 routine) when it is time to exit the
 // Gossiping state and return.
 func (n *Node) gossip(parentReturnCh chan struct{}) error {
 
@@ -642,7 +642,7 @@ func (n *Node) commit(block poset.Block) error {
 	}).Debug("commit(eventBlock poset.EventBlock)")
 
 	// XXX what do we do in case of error. Retry? This has to do with the
-	// Lachesis <-> App interface. Think about it.
+	// DAG1 <-> App interface. Think about it.
 
 	// An error here could be that the endpoint is not configured, not all
 	// nodes will be sending blocks to clients, in these cases -no_client can be
@@ -682,7 +682,7 @@ func (n *Node) addInternalTransaction(tx poset.InternalTransaction) {
 // Shutdown the node
 func (n *Node) Shutdown() {
 	if n.getState() != Shutdown {
-		// n.mqtt.FireEvent("Shutdown()", "/mq/lachesis/node")
+		// n.mqtt.FireEvent("Shutdown()", "/mq/dag1/node")
 		n.logger.Debug("Shutdown()")
 
 		// Exit any non-shutdown state immediately
@@ -748,7 +748,7 @@ func (n *Node) GetStats() map[string]string {
 		"id":                      fmt.Sprint(n.id),
 		"state":                   n.getState().String(),
 	}
-	// n.mqtt.FireEvent(s, "/mq/lachesis/stats")
+	// n.mqtt.FireEvent(s, "/mq/dag1/stats")
 	return s
 }
 

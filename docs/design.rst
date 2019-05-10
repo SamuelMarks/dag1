@@ -22,7 +22,7 @@ Overview
     --------- SubmitTx(tx) ---- CommitBlock(Block) ------- JSON-RPC/TCP or in-memory       
                    |                |                         
      +-------------|----------------|------------------------------+
-     | LACHESIS      |                |                              |
+     | DAG1      |                |                              |
      |             v                |                              |
      |          +----------------------+                           |
      |          | App Proxy            |                           |
@@ -64,19 +64,19 @@ for read-only requests), but forwards commands to a *transaction ordering
 system* which takes care of broadcasting and ordering the transactions across 
 all replicas before feeding them back to the application's *state*. 
 
-Lachesis is an ordering system that plugs into any application thanks to a very 
+DAG1 is an ordering system that plugs into any application thanks to a very 
 simple interface. It uses a consensus algorithm, to replicate and order the 
 transactions, and a blockchain to represent the resulting list. A blockchain is 
 a linear data structure composed of batches of transactions, hashed and signed 
 together, easily allowing to verify any transaction. So, instead of applying 
-commands directly to the *state*, Lachesis applications must forward the commands 
-to Lachesis and let them be processed asynchronously by the consensus system 
+commands directly to the *state*, DAG1 applications must forward the commands 
+to DAG1 and let them be processed asynchronously by the consensus system 
 before receiving them back, in blocks, ready to be applied to the *state*.  
 
 Consensus and Blockchain
 ------------------------
 
-At the core of Lachesis is an algorithm insuring that all participants process the 
+At the core of DAG1 is an algorithm insuring that all participants process the 
 same transactions in the same order. We have chosen to implement a system 
 suitable for the most adversarial conditions - with powerful attackers. This is 
 known as Byzantine Fault Tolerance (BFT) and has been a field of research for 
@@ -114,7 +114,7 @@ For more detail about the projection method, please refer to :ref:`blockchain`
 Proxy
 -----
 
-Lachesis communicates with the App through an `AppProxy` interface, which has two
+DAG1 communicates with the App through an `AppProxy` interface, which has two
 implementations:
 
 - ``SocketProxy``: A SocketProxy connects to an App via TCP sockets. It enables 
@@ -122,9 +122,9 @@ implementations:
   be written in any programming language.
 
 - ``InmemProxy``: An InmemProxy uses native callback handlers to integrate 
-  Lachesis as a regular Go dependency. 
+  DAG1 as a regular Go dependency. 
 
-The ``AppProxy`` interface exposes three methods for Lachesis to call the App:
+The ``AppProxy`` interface exposes three methods for DAG1 to call the App:
 
 - ``CommitBlock(Block) ([]byte, error)``: Commits a block to the application and 
   returns the resulting state hash.
@@ -134,13 +134,13 @@ The ``AppProxy`` interface exposes three methods for Lachesis to call the App:
 
 - ``Restore([]byte) error``: Restores the App state from a snapshot.
 
-Reciprocally, ``AppProxy`` relays transactions from the App to Lachesis via a 
+Reciprocally, ``AppProxy`` relays transactions from the App to DAG1 via a 
 native Go channel - ``SubmitCh`` - which ties into the application differently 
 depending on the type of proxy (Socket or Inmem).
 
-Lachesis asynchronously processes transactions and eventually feeds them back to 
+DAG1 asynchronously processes transactions and eventually feeds them back to 
 the App, in consensus order and bundled into blocks, with a **CommitBlock** 
-call. Transactions are just raw bytes and Lachesis does not need to know what they 
+call. Transactions are just raw bytes and DAG1 does not need to know what they 
 represent. Therefore, encoding and decoding transactions is done by the App.
 
 See the :ref:`api` section for more details about the Proxy API.
@@ -148,7 +148,7 @@ See the :ref:`api` section for more details about the Proxy API.
 Transport
 ---------
 
-Lachesis nodes communicate with other Lachesis nodes in a fully connected Peer To 
+DAG1 nodes communicate with other DAG1 nodes in a fully connected Peer To 
 Peer network. Nodes gossip by repeatedly choosing another node at random and 
 telling eachother what they know about the poset. The gossip protocol is 
 extremely simple and serves the dual purpose of gossiping about transactions and 
@@ -175,7 +175,7 @@ implementation prioritization.
 Core
 ----
 
-The core of Lachesis is the component that maintains and computes the poset.  
+The core of DAG1 is the component that maintains and computes the poset.  
 The consensus algorithm, invented by Leemon Baird, is best described in the 
 `white-paper <http://www.swirlds.com/downloads/SWIRLDS-TR-2016-01.pdf>`__  
 and its `accompanying document 
@@ -203,7 +203,7 @@ two queries:
 
 **[GET] /stats**:  
 
-Returns a map with information about the Lachesis node. 
+Returns a map with information about the DAG1 node. 
 
 ::
 
@@ -226,7 +226,7 @@ Returns a map with information about the Lachesis node.
 
 **[GET] /block/{block_index}**:
 
-Returns the Block with the specified index, as stored by the Lachesis node.
+Returns the Block with the specified index, as stored by the DAG1 node.
 
 ::
 

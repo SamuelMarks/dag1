@@ -4,9 +4,9 @@ import (
 	"hash"
 	"sync"
 
-	"github.com/Fantom-foundation/go-lachesis/src/common"
-	"github.com/Fantom-foundation/go-lachesis/src/crypto/sha3"
-	"github.com/Fantom-foundation/go-lachesis/src/rlp"
+	"github.com/SamuelMarks/dag1/src/common"
+	"github.com/SamuelMarks/dag1/src/crypto/sha3"
+	"github.com/SamuelMarks/dag1/src/rlp"
 )
 
 type hasher struct {

@@ -1,6 +1,6 @@
 package proto
 
-import "github.com/Fantom-foundation/go-lachesis/src/poset"
+import "github.com/SamuelMarks/dag1/src/poset"
 
 type StateHash struct {
 	Hash []byte

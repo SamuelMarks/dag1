@@ -20,7 +20,7 @@ batch-ethkey -dir "$PEERS_DIR/nodes" -network 127.0.0.1 -n "$n" -port-start 1200
 
 
 declare -i node_num=0
-go build -o lachesis cmd/lachesis/main.go
+go build -o dag1 cmd/dag1/main.go
 
 trap 'kill $(jobs -p)' SIGINT SIGTERM EXIT
 
@@ -38,7 +38,7 @@ for host in $(jq -rc '.[].NetAddr' "$PEERS_DIR/peers.json"); do
 
   node_dir="$PEERS_DIR/nodes/$node_num_p"
   cp "$PEERS_DIR/peers.json" "$node_dir"
-  ./lachesis run  --log=info --listen="$host" --datadir "$PEERS_DIR/nodes/$node_num_p" --heartbeat=4s --store -p "$ip:$proxy_port" -s "$ip:$service_port" --test &
+  ./dag1 run  --log=info --listen="$host" --datadir "$PEERS_DIR/nodes/$node_num_p" --heartbeat=4s --store -p "$ip:$proxy_port" -s "$ip:$service_port" --test &
 
   #"$DIR/spin.bash" "$node_num_p" "$ip"
   ((node_num++))

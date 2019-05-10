@@ -2,7 +2,7 @@
 
 export IFS=$'\n\t'
 
-export PROJECT="${PROJECT:-lachesis}"
+export PROJECT="${PROJECT:-dag1}"
 export BUILD_DIR="${BUILD_DIR:-$DIR}"
 export DATAL_DIR="${DATAL_DIR:-$BUILD_DIR}"
 export PEERS_DIR="${PEERS_DIR:-$BUILD_DIR}"

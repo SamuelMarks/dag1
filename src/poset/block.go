@@ -8,7 +8,7 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/Fantom-foundation/go-lachesis/src/crypto"
+	"github.com/SamuelMarks/dag1/src/crypto"
 	"github.com/golang/protobuf/proto"
 )
 

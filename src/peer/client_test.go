@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"github.com/Fantom-foundation/go-lachesis/src/common/hexutil"
+	"github.com/SamuelMarks/dag1/src/common/hexutil"
 	"net"
 	"net/rpc"
 	"reflect"
@@ -13,9 +13,9 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/Fantom-foundation/go-lachesis/src/peer"
-	"github.com/Fantom-foundation/go-lachesis/src/peer/fakenet"
-	"github.com/Fantom-foundation/go-lachesis/src/poset"
+	"github.com/SamuelMarks/dag1/src/peer"
+	"github.com/SamuelMarks/dag1/src/peer/fakenet"
+	"github.com/SamuelMarks/dag1/src/poset"
 )
 
 var (

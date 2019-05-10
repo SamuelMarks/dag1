@@ -3,7 +3,7 @@ package trie
 import (
 	"fmt"
 
-	"github.com/Fantom-foundation/go-lachesis/src/common"
+	"github.com/SamuelMarks/dag1/src/common"
 )
 
 // MissingNodeError is returned by the trie functions (TryGet, TryUpdate, TryDelete)

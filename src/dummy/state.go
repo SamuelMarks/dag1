@@ -6,12 +6,12 @@ import (
 
 	"github.com/sirupsen/logrus"
 
-	"github.com/Fantom-foundation/go-lachesis/src/crypto"
-	"github.com/Fantom-foundation/go-lachesis/src/poset"
+	"github.com/SamuelMarks/dag1/src/crypto"
+	"github.com/SamuelMarks/dag1/src/poset"
 )
 
 /*
- * The dummy App is used for testing and as an example for building Lachesis
+ * The dummy App is used for testing and as an example for building DAG1
  * applications. Here, we define the dummy's state which doesn't really do
  * anything useful. It saves and logs block transactions. The state hash is
  * computed by cumulatively hashing transactions together as they come in.

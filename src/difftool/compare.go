@@ -5,8 +5,8 @@ import (
 	"reflect"
 	"sort"
 
-	"github.com/Fantom-foundation/go-lachesis/src/node"
-	"github.com/Fantom-foundation/go-lachesis/src/poset"
+	"github.com/SamuelMarks/dag1/src/node"
+	"github.com/SamuelMarks/dag1/src/poset"
 )
 
 // Compare compares each node with others

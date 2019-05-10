@@ -17,11 +17,11 @@ SECURITY:
 FEATURES:
 
 * proxy: Introduced in-memory proxy.
-* cmd: Enable reading config from file (lachesis.toml, .json, or .yaml)
+* cmd: Enable reading config from file (dag1.toml, .json, or .yaml)
 
 IMPROVEMENTS:
 
-* node: major refactoring of configuration and initialization of Lachesis node.
+* node: major refactoring of configuration and initialization of DAG1 node.
 * node: Node ID is calculated from public key rather than from sorting the 
 peers.json file.
 
@@ -42,4 +42,4 @@ IMPROVEMENTS:
 * poset: Refactored the consensus methods around the concept of Frames.
 * poset: Removed special case for "initial" Events, and make use of Roots 
 instead. 
-* docs: Added sections on Lachesis and FastSync.
+* docs: Added sections on DAG1 and FastSync.

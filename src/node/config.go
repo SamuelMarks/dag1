@@ -4,8 +4,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Fantom-foundation/go-lachesis/src/common"
-	"github.com/Fantom-foundation/go-lachesis/src/log"
+	"github.com/SamuelMarks/dag1/src/common"
+	"github.com/SamuelMarks/dag1/src/log"
 	"github.com/sirupsen/logrus"
 )
 
@@ -39,7 +39,7 @@ func NewConfig(heartbeat time.Duration,
 func DefaultConfig() *Config {
 	logger := logrus.New()
 	logger.Level = logrus.DebugLevel
-	lachesis_log.NewLocal(logger, logger.Level.String())
+	dag1_log.NewLocal(logger, logger.Level.String())
 
 	return &Config{
 		HeartbeatTimeout: 10 * time.Millisecond,

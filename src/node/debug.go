@@ -13,7 +13,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/Fantom-foundation/go-lachesis/src/poset"
+	"github.com/SamuelMarks/dag1/src/poset"
 	"github.com/sirupsen/logrus"
 	"github.com/tebeka/atexit"
 )
@@ -325,7 +325,7 @@ func (n *Node) PrintStat() {
 func (n *Node) Register() {
 	var once sync.Once
 	onceBody := func() {
-		file, err := os.OpenFile("lachesis.trace", os.O_APPEND | os.O_CREATE | os.O_WRONLY, 0644)
+		file, err := os.OpenFile("dag1.trace", os.O_APPEND | os.O_CREATE | os.O_WRONLY, 0644)
 		if err != nil {
 			fmt.Printf("*** Open  err: %v", err)
 			return

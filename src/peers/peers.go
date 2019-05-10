@@ -5,7 +5,7 @@ import (
 	"sort"
 	"sync"
 
-	"github.com/Fantom-foundation/go-lachesis/src/common"
+	"github.com/SamuelMarks/dag1/src/common"
 )
 
 // PubKeyPeers map of peers sorted by public key

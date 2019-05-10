@@ -3,7 +3,7 @@ package kvdb
 import (
 	"github.com/dgraph-io/badger"
 
-	"github.com/Fantom-foundation/go-lachesis/src/common"
+	"github.com/SamuelMarks/dag1/src/common"
 )
 
 // BadgerDatabase is a kvbd.Database wrapper of *badger.DB

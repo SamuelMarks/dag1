@@ -14,7 +14,7 @@ import (
 )
 
 const (
-	lachesis = "Lachesis"
+	dag1 = "DAG1"
 	// TCP is a Transmission Control Protocol.
 	TCP = "tcp"
 )
@@ -73,7 +73,7 @@ func NewBackend(conf *BackendConfig,
 	receiver := make(chan *RPC)
 	done := make(chan struct{})
 	rpcServer := rpc.NewServer()
-	if err := rpcServer.RegisterName(lachesis, NewLachesis(
+	if err := rpcServer.RegisterName(dag1, NewDAG1(
 		done, receiver, conf.ReceiveTimeout, conf.ProcessTimeout)); err != nil {
 		logger.Panic(err)
 	}

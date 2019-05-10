@@ -7,11 +7,11 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/Fantom-foundation/go-lachesis/src/common"
-	"github.com/Fantom-foundation/go-lachesis/src/crypto"
-	"github.com/Fantom-foundation/go-lachesis/src/poset"
-	"github.com/Fantom-foundation/go-lachesis/src/proxy"
-	"github.com/Fantom-foundation/go-lachesis/src/utils"
+	"github.com/SamuelMarks/dag1/src/common"
+	"github.com/SamuelMarks/dag1/src/crypto"
+	"github.com/SamuelMarks/dag1/src/poset"
+	"github.com/SamuelMarks/dag1/src/proxy"
+	"github.com/SamuelMarks/dag1/src/utils"
 )
 
 func TestSocketProxyServer(t *testing.T) {
@@ -40,10 +40,10 @@ func TestSocketProxyServer(t *testing.T) {
 	}()
 
 	// Client part connecting to RPC service and calling methods
-	lachesisProxy, err := proxy.NewGrpcLachesisProxy(addr[0], logger)
+	dag1Proxy, err := proxy.NewGrpcDAG1Proxy(addr[0], logger)
 	assertO.NoError(err)
 
-	node, err := NewDummyClient(lachesisProxy, nil, logger)
+	node, err := NewDummyClient(dag1Proxy, nil, logger)
 	assertO.NoError(err)
 
 	err = node.SubmitTx(txOrigin)
@@ -68,17 +68,17 @@ func TestDummySocketClient(t *testing.T) {
 	}()
 
 	// client
-	lachesisProxy, err := proxy.NewGrpcLachesisProxy(addr[0], logger)
+	dag1Proxy, err := proxy.NewGrpcDAG1Proxy(addr[0], logger)
 	assertO.NoError(err)
 	defer func() {
-		if err := lachesisProxy.Close(); err != nil {
+		if err := dag1Proxy.Close(); err != nil {
 			t.Fatal(err)
 		}
 	}()
 
 	state := NewState(logger)
 
-	_, err = NewDummyClient(lachesisProxy, state, logger)
+	_, err = NewDummyClient(dag1Proxy, state, logger)
 	assertO.NoError(err)
 
 	initialStateHash := state.stateHash

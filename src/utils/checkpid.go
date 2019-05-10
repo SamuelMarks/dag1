@@ -17,7 +17,7 @@ func CheckPid(pidfileName string) error {
 		} else {
 			err := process.Signal(syscall.Signal(0))
 			if err == nil {
-				return fmt.Errorf("perhaps another lachesis is already running with pid %d", pid)
+				return fmt.Errorf("perhaps another dag1 is already running with pid %d", pid)
 			}
 		}
 	}

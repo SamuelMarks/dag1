@@ -5,8 +5,8 @@ import (
 	"container/heap"
 	"errors"
 
-	"github.com/Fantom-foundation/go-lachesis/src/common"
-	"github.com/Fantom-foundation/go-lachesis/src/rlp"
+	"github.com/SamuelMarks/dag1/src/common"
+	"github.com/SamuelMarks/dag1/src/rlp"
 )
 
 // Iterator is a key-value trie iterator that traverses a Trie.

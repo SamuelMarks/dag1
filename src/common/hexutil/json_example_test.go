@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/Fantom-foundation/go-lachesis/src/common/hexutil"
+	"github.com/SamuelMarks/dag1/src/common/hexutil"
 )
 
 type MyType [5]byte

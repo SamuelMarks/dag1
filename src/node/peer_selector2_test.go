@@ -6,7 +6,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/Fantom-foundation/go-lachesis/src/peers"
+	"github.com/SamuelMarks/dag1/src/peers"
 )
 
 func TestSmartSelectorEmpty(t *testing.T) {

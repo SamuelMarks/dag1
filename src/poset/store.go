@@ -3,13 +3,13 @@
 package poset
 
 import (
-	"github.com/Fantom-foundation/go-lachesis/src/common"
-	"github.com/Fantom-foundation/go-lachesis/src/peers"
-	"github.com/Fantom-foundation/go-lachesis/src/state"
+	"github.com/SamuelMarks/dag1/src/common"
+	"github.com/SamuelMarks/dag1/src/peers"
+	"github.com/SamuelMarks/dag1/src/state"
 )
 
 // Store provides an interface for persistent and non-persistent stores
-// to store key lachesis consensus information on a node.
+// to store key dag1 consensus information on a node.
 type Store interface {
 	TopologicalEvents() ([]Event, error) // returns event in topological order
 	CacheSize() int

@@ -1,7 +1,7 @@
 package node
 
 import (
-	"github.com/Fantom-foundation/go-lachesis/src/poset"
+	"github.com/SamuelMarks/dag1/src/poset"
 )
 
 /*

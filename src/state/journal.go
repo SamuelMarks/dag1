@@ -1,7 +1,7 @@
 package state
 
 import (
-	"github.com/Fantom-foundation/go-lachesis/src/common"
+	"github.com/SamuelMarks/dag1/src/common"
 )
 
 // journalEntry is a modification entry in the state change journal that can be

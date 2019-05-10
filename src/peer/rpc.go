@@ -6,23 +6,23 @@ import (
 
 // RPC Methods.
 const (
-	MethodSync        = "Lachesis.Sync"
-	MethodForceSync   = "Lachesis.ForceSync"
-	MethodFastForward = "Lachesis.FastForward"
+	MethodSync        = "DAG1.Sync"
+	MethodForceSync   = "DAG1.ForceSync"
+	MethodFastForward = "DAG1.FastForward"
 )
 
-// Lachesis implements Lachesis synchronization methods.
-type Lachesis struct {
+// DAG1 implements DAG1 synchronization methods.
+type DAG1 struct {
 	done           chan struct{}
 	receiver       chan *RPC
 	processTimeout time.Duration
 	receiveTimeout time.Duration
 }
 
-// NewLachesis creates new Lachesis RPC handler.
-func NewLachesis(done chan struct{}, receiver chan *RPC,
-	receiveTimeout, processTimeout time.Duration) *Lachesis {
-	return &Lachesis{
+// NewDAG1 creates new DAG1 RPC handler.
+func NewDAG1(done chan struct{}, receiver chan *RPC,
+	receiveTimeout, processTimeout time.Duration) *DAG1 {
+	return &DAG1{
 		done:           done,
 		receiver:       receiver,
 		processTimeout: processTimeout,
@@ -31,7 +31,7 @@ func NewLachesis(done chan struct{}, receiver chan *RPC,
 }
 
 // Sync handles sync requests.
-func (r *Lachesis) Sync(
+func (r *DAG1) Sync(
 	req *SyncRequest, resp *SyncResponse) error {
 	result, err := r.process(req)
 	if err != nil {
@@ -47,7 +47,7 @@ func (r *Lachesis) Sync(
 }
 
 // ForceSync handles force sync requests.
-func (r *Lachesis) ForceSync(
+func (r *DAG1) ForceSync(
 	req *ForceSyncRequest, resp *ForceSyncResponse) error {
 	result, err := r.process(req)
 	if err != nil {
@@ -63,7 +63,7 @@ func (r *Lachesis) ForceSync(
 }
 
 // FastForward handles fast forward requests.
-func (r *Lachesis) FastForward(
+func (r *DAG1) FastForward(
 	req *FastForwardRequest, resp *FastForwardResponse) error {
 	result, err := r.process(req)
 	if err != nil {
@@ -78,7 +78,7 @@ func (r *Lachesis) FastForward(
 	return nil
 }
 
-func (r *Lachesis) send(req interface{}) *RPCResponse {
+func (r *DAG1) send(req interface{}) *RPCResponse {
 	reply := make(chan *RPCResponse, 1) // Buffered.
 	ticket := &RPC{
 		Command:  req,
@@ -110,7 +110,7 @@ func (r *Lachesis) send(req interface{}) *RPCResponse {
 	return result
 }
 
-func (r *Lachesis) process(req interface{}) (resp interface{}, err error) {
+func (r *DAG1) process(req interface{}) (resp interface{}, err error) {
 	result := r.send(req)
 	if result.Error != nil {
 		return nil, result.Error

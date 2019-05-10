@@ -4,7 +4,7 @@ import (
 	"math"
 	"math/rand"
 
-	"github.com/Fantom-foundation/go-lachesis/src/peers"
+	"github.com/SamuelMarks/dag1/src/peers"
 )
 
 // GetFlagTableFn declares flag table function signature

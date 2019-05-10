@@ -3,8 +3,8 @@
 API
 ===
 
-As mentioned in the :ref:`design` section, Lachesis communicates with the App 
-through an ``AppProxy`` interface, which exposes three methods for Lachesis to 
+As mentioned in the :ref:`design` section, DAG1 communicates with the App 
+through an ``AppProxy`` interface, which exposes three methods for DAG1 to 
 call the App. Here we explain how to implement this API. 
 
 **Note**: 
@@ -15,11 +15,11 @@ is safe to just implement stubs for these methods.
 Inmem
 -----
 
-The ``InmemProxy`` uses native callback handlers to enable Lachesis to call 
+The ``InmemProxy`` uses native callback handlers to enable DAG1 to call 
 methods on the App directly. Applications need only implement the 
 ``ProxyHandler`` interface and pass that to an ``InmemProxy``.
 
-Here is a quick example of how to use Lachesis as an in-memory engine (in the same 
+Here is a quick example of how to use DAG1 as an in-memory engine (in the same 
 process as your handler):
 
 ::
@@ -27,10 +27,10 @@ process as your handler):
   package main
   
   import (
-  	"github.com/Fantom-foundation/go-lachesis/src/lachesis"
-  	"github.com/Fantom-foundation/go-lachesis/src/crypto"
-  	"github.com/Fantom-foundation/go-lachesis/src/poset"
-  	"github.com/Fantom-foundation/go-lachesis/src/proxy/inmem"
+  	"github.com/SamuelMarks/dag1/src/dag1"
+  	"github.com/SamuelMarks/dag1/src/crypto"
+  	"github.com/SamuelMarks/dag1/src/poset"
+  	"github.com/SamuelMarks/dag1/src/proxy/inmem"
   )
   
   // Implements proxy.ProxyHandler interface
@@ -38,7 +38,7 @@ process as your handler):
   	stateHash []byte
   }
   
-  // Called when a new block is committed by Lachesis. This particular example 
+  // Called when a new block is committed by DAG1. This particular example 
   // just computes the stateHash incrementaly with incoming blocks.
   func (h *Handler) CommitHandler(block poset.Block) (stateHash []byte, err error) {
   	hash := h.stateHash
@@ -68,15 +68,15 @@ process as your handler):
   
   func main() {
   	
-  	config := lachesis.NewDefaultConfig()
+  	config := dag1.NewDefaultConfig()
   
-  	// To use lachesis as an internal engine we use InmemProxy.
+  	// To use dag1 as an internal engine we use InmemProxy.
   	proxy := inmem.NewInmemProxy(NewHandler(), config.Logger)
   
   	config.Proxy = proxy
   
   	// Create the engine with the provided config
-  	engine := lachesis.NewLachesis(config)
+  	engine := dag1.NewDAG1(config)
   
   	// Initialize the engine
   	if err := engine.Init(); err != nil {
@@ -96,14 +96,14 @@ Socket
 The ``SocketProxy`` is simply a TCP server that accepts `SubmitTx` requests, and 
 calls remote methods on the App through a JSON-RPC interface. The App is 
 therefore expected to implement its own component to send out SubmitTx 
-requests through TCP, and receive JSON-RPC messages from the remote Lachesis node.
+requests through TCP, and receive JSON-RPC messages from the remote DAG1 node.
 
 The advantage of using a TCP interface is that it provides the freedom to 
 implement the application in any programming language. The specification of the
 JSON-RPC interface is provided below, but here is an example of how to use our 
-Go implementation, ``SocketLachesisProxy``, to connect to a remote Lachesis node.
+Go implementation, ``SocketDAG1Proxy``, to connect to a remote DAG1 node.
 
-Assuming there is a Lachesis node running with its proxy listening on 
+Assuming there is a DAG1 node running with its proxy listening on 
 ``127.0.0.1:1338`` and configured to speak to an App at ``127.0.0.1:1339`` 
 (these are the default values):
 
@@ -114,9 +114,9 @@ Assuming there is a Lachesis node running with its proxy listening on
   import (
   	"time"
   
-  	"github.com/Fantom-foundation/go-lachesis/src/crypto"
-  	"github.com/Fantom-foundation/go-lachesis/src/poset"
-  	"github.com/Fantom-foundation/go-lachesis/src/proxy/socket/lachesis"
+  	"github.com/SamuelMarks/dag1/src/crypto"
+  	"github.com/SamuelMarks/dag1/src/poset"
+  	"github.com/SamuelMarks/dag1/src/proxy/socket/dag1"
   )
   
   // Implements proxy.ProxyHandler interface
@@ -153,9 +153,9 @@ Assuming there is a Lachesis node running with its proxy listening on
   }
   
   func main() {
-  	// Connect to the lachesis proxy at :1338 and listen on :1339.
+  	// Connect to the dag1 proxy at :1338 and listen on :1339.
   	// The Handler ties back to the application state.
-  	proxy, err := lachesis.NewSocketLachesisProxy("127.0.0.1:1338", "127.0.0.1:1339", NewHandler(), 1*time.Second, nil)
+  	proxy, err := dag1.NewSocketDAG1Proxy("127.0.0.1:1338", "127.0.0.1:1339", NewHandler(), 1*time.Second, nil)
   
   	// Verify that it can listen
   	if err != nil {
@@ -173,11 +173,11 @@ Assuming there is a Lachesis node running with its proxy listening on
   	}
   }
 
-Example SubmitTx request (from App to Lachesis):
+Example SubmitTx request (from App to DAG1):
 
 ::
 
-  request: {"method":"Lachesis.SubmitTx","params":["Y2xpZW50IDE6IGhlbGxv"],"id":0}
+  request: {"method":"DAG1.SubmitTx","params":["Y2xpZW50IDE6IGhlbGxv"],"id":0}
   response: {"id":0,"result":true,"error":null}
 
 
@@ -186,10 +186,10 @@ an example of how to make a SubmitTx request manually:
 
 ::
 
-  printf "{\"method\":\"Lachesis.SubmitTx\",\"params\":[\"Y2xpZW50IDE6IGhlbGxv\"],\"id\":0}" | nc -v  172.77.5.1 1338
+  printf "{\"method\":\"DAG1.SubmitTx\",\"params\":[\"Y2xpZW50IDE6IGhlbGxv\"],\"id\":0}" | nc -v  172.77.5.1 1338
 
 
-Example CommitBlock request (from Lachesis to App):
+Example CommitBlock request (from DAG1 to App):
 
 ::
     

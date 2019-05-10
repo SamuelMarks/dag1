@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Fantom-foundation/go-lachesis/src/peer"
+	"github.com/SamuelMarks/dag1/src/peer"
 )
 
 func TestProducer(t *testing.T) {

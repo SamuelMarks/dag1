@@ -8,9 +8,9 @@ var (
 	config = NewDefaultCLIConfig()
 )
 
-//RootCmd is the root command for Lachesis
+//RootCmd is the root command for DAG1
 var RootCmd = &cobra.Command{
-	Use:              "lachesis",
-	Short:            "lachesis consensus",
+	Use:              "dag1",
+	Short:            "dag1 consensus",
 	TraverseChildren: true,
 }

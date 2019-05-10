@@ -1,12 +1,12 @@
 FROM offscale/golang-builder-alpine3.8 as stage0
 
-COPY ./ "$GOPATH/src/github.com/Fantom-foundation/go-lachesis/"
+COPY ./ "$GOPATH/src/github.com/SamuelMarks/dag1/"
 
 RUN mkdir -p /cp_bin /bin \
-    && cd "$GOPATH/src/github.com/Fantom-foundation/go-lachesis" \
+    && cd "$GOPATH/src/github.com/SamuelMarks/dag1" \
     && glide install \
-    && cd "cmd/lachesis" \
-    && go build -ldflags "-linkmode external -extldflags -static -s -w" -a -o /cp_bin/lachesis main.go
+    && cd "cmd/dag1" \
+    && go build -ldflags "-linkmode external -extldflags -static -s -w" -a -o /cp_bin/dag1 main.go
 
 RUN apk --no-cache add libc-dev cmake \
     && git clone https://github.com/SamuelMarks/docker-static-bin /build/docker-static-bin \
@@ -18,10 +18,10 @@ RUN apk --no-cache add libc-dev cmake \
     && gcc env.c       -o "/cp_bin/env"       -Os -static -Wno-implicit-function-declaration \
     && gcc list.c      -o "/cp_bin/list"      -Os -static \
     && gcc crappy_sh.c -o "/cp_bin/crappy_sh" -Os -static -Wno-implicit-function-declaration -Wno-int-conversion -I./../cmake-build-release \
-    && strip -s /cp_bin/crappy_sh /cp_bin/copy /cp_bin/env /cp_bin/list /cp_bin/lachesis
+    && strip -s /cp_bin/crappy_sh /cp_bin/copy /cp_bin/env /cp_bin/list /cp_bin/dag1
 
 
-FROM scratch as lachesis_base
+FROM scratch as dag1_base
 
 ENV node_addr='127.0.0.1'
 
@@ -37,6 +37,6 @@ ARG ca_certificates
 ADD "$ca_certificates" /etc/ssl/certs/
 COPY --from=0 /cp_bin /bin
 
-ENTRYPOINT ["/bin/lachesis"]
+ENTRYPOINT ["/bin/dag1"]
 
-#CMD [ "/bin/crappy_sh", "-v", "-e", "-c", "/bin/env ; /bin/lachesis run --datadir /data --store /data/badger_db --listen=$node_addr:12000 --heartbeat=50s" ]
+#CMD [ "/bin/crappy_sh", "-v", "-e", "-c", "/bin/env ; /bin/dag1 run --datadir /data --store /data/badger_db --listen=$node_addr:12000 --heartbeat=50s" ]

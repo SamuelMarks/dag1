@@ -36,8 +36,8 @@ shift $((OPTIND-1))
 
 [ "${1:-}" = "--" ] && shift
 
-# Use -tags="netgo multi" in bgo build below to build multu lachesis version for testing
-declare args="-X github.com/Fantom-foundation/go-lachesis/src/version.GitCommit=$(git rev-parse HEAD)"
+# Use -tags="netgo multi" in bgo build below to build multu dag1 version for testing
+declare args="-X github.com/SamuelMarks/dag1/src/version.GitCommit=$(git rev-parse HEAD)"
 if [ "$TARGET_OS" == "linux" ]; then
   args="$args -linkmode external -extldflags -static"
 fi
@@ -48,13 +48,13 @@ else
   gc_flags="all=-N -l"
 fi
 
-env GOOS="$TARGET_OS" GOARCH=amd64 go build -tags="netgo multi debug" -ldflags "$args" -o lachesis_"$TARGET_OS" -gcflags "$gc_flags" "$parent_dir/cmd/lachesis/$entry.go" || exit 1
+env GOOS="$TARGET_OS" GOARCH=amd64 go build -tags="netgo multi debug" -ldflags "$args" -o dag1_"$TARGET_OS" -gcflags "$gc_flags" "$parent_dir/cmd/dag1/$entry.go" || exit 1
 
-# Create peers.json and lachesis_data_dir if needed
-if [ ! -d "$DATAL_DIR/lachesis_data_dir" ]; then
+# Create peers.json and dag1_data_dir if needed
+if [ ! -d "$DATAL_DIR/dag1_data_dir" ]; then
     "$GOPATH/bin/batch-ethkey" -dir "$BUILD_DIR/nodes" -network "$ip_start" -inc-port -n "$n" --port-start 12001
     cat "$BUILD_DIR/nodes/peers.json"> "$PEERS_DIR/peers.json"
     cat "$PEERS_DIR/peers.json"
-    cp -rv "$BUILD_DIR/nodes" "$DATAL_DIR/lachesis_data_dir"
-    cp -v "$PEERS_DIR/peers.json" "$DATAL_DIR/lachesis_data_dir/"
+    cp -rv "$BUILD_DIR/nodes" "$DATAL_DIR/dag1_data_dir"
+    cp -v "$PEERS_DIR/peers.json" "$DATAL_DIR/dag1_data_dir/"
 fi

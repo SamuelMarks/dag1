@@ -3,10 +3,10 @@ before:
     - make clean proto vendor
 builds:
   - main: ./cmd/dummy/main.go
-    binary: go-lachesis-dummy
+    binary: dag1-dummy
     ldflags:
       - -linkmode external -extldflags -static -s -w
-      - -X github.com/Fantom-foundation/go-lachesis/src/version.GitCommit={{ .ShortCommit }}
+      - -X github.com/SamuelMarks/dag1/src/version.GitCommit={{ .ShortCommit }}
     env:
       - CGO_ENABLED=0
     goos:
@@ -16,10 +16,10 @@ builds:
     # hooks:
     #   pre: make clean proto vendor
   - main: ./cmd/dummy_client/main.go
-    binary: go-lachesis-dummy-client
+    binary: dag1-dummy-client
     ldflags:
       - -linkmode external -extldflags -static -s -w
-      - -X github.com/Fantom-foundation/go-lachesis/src/version.GitCommit={{ .ShortCommit }}
+      - -X github.com/SamuelMarks/dag1/src/version.GitCommit={{ .ShortCommit }}
     env:
       - CGO_ENABLED=0
     goos:
@@ -27,10 +27,10 @@ builds:
     goarch:
       - amd64
   - main: ./cmd/lachesis/main.go
-    binary: go-lachesis
+    binary: dag1
     ldflags:
       - -linkmode external -extldflags -static -s -w
-      - -X github.com/Fantom-foundation/go-lachesis/src/version.GitCommit={{ .ShortCommit }}
+      - -X github.com/SamuelMarks/dag1/src/version.GitCommit={{ .ShortCommit }}
     env:
       - CGO_ENABLED=0
     goos:
@@ -38,10 +38,10 @@ builds:
     goarch:
       - amd64
   - main: ./cmd/lachesis/main_profile.go
-    binary: go-lachesis-with-profiler
+    binary: dag1-with-profiler
     ldflags:
       - -linkmode external -extldflags -static -s -w
-      - -X github.com/Fantom-foundation/go-lachesis/src/version.GitCommit={{ .ShortCommit }}
+      - -X github.com/SamuelMarks/dag1/src/version.GitCommit={{ .ShortCommit }}
     env:
       - CGO_ENABLED=0
     goos:
@@ -49,10 +49,10 @@ builds:
     goarch:
       - amd64
   - main: ./cmd/network/main.go
-    binary: go-lachesis-network
+    binary: dag1-network
     ldflags:
       - -linkmode external -extldflags -static -s -w
-      - -X github.com/Fantom-foundation/go-lachesis/src/version.GitCommit={{ .ShortCommit }}
+      - -X github.com/SamuelMarks/dag1/src/version.GitCommit={{ .ShortCommit }}
     env:
       - CGO_ENABLED=0
     goos:
@@ -95,10 +95,10 @@ nfpm:
     - rpm
 
   empty_folders:
-    - /var/log/go-lachesis
+    - /var/log/dag1
 
   files:
-    "scripts/daemon/go-lachesis.service": "/lib/systemd/system/go-lachesis.service"
+    "scripts/daemon/dag1.service": "/lib/systemd/system/dag1.service"
 
   # scripts:
   #   preinstall: "scripts/preinstall.bash"

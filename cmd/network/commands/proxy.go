@@ -7,9 +7,9 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/Fantom-foundation/go-lachesis/src/crypto"
-	"github.com/Fantom-foundation/go-lachesis/src/poset"
-	"github.com/Fantom-foundation/go-lachesis/src/proxy"
+	"github.com/SamuelMarks/dag1/src/crypto"
+	"github.com/SamuelMarks/dag1/src/poset"
+	"github.com/SamuelMarks/dag1/src/proxy"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )
@@ -73,7 +73,7 @@ func connectProxy(cmd *cobra.Command, args []string) error {
 
 	logger.Level = logrus.InfoLevel
 
-	appProxy, err := proxy.NewGrpcLachesisProxy("127.0.0.1:"+proxyServPortStr, logger)
+	appProxy, err := proxy.NewGrpcDAG1Proxy("127.0.0.1:"+proxyServPortStr, logger)
 	if err != nil {
 		panic(err)
 	}

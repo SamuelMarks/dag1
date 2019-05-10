@@ -14,10 +14,10 @@ import (
 	"github.com/hashicorp/golang-lru"
 	"github.com/sirupsen/logrus"
 
-	"github.com/Fantom-foundation/go-lachesis/src/common"
-	"github.com/Fantom-foundation/go-lachesis/src/log"
-	"github.com/Fantom-foundation/go-lachesis/src/peers"
-	"github.com/Fantom-foundation/go-lachesis/src/state"
+	"github.com/SamuelMarks/dag1/src/common"
+	"github.com/SamuelMarks/dag1/src/log"
+	"github.com/SamuelMarks/dag1/src/peers"
+	"github.com/SamuelMarks/dag1/src/state"
 )
 
 // Core is an interface for interacting with a core.
@@ -68,7 +68,7 @@ func NewPoset(participants *peers.Peers, store Store, commitCh chan Block, logge
 	if logger == nil {
 		log := logrus.New()
 		log.Level = logrus.DebugLevel
-		lachesis_log.NewLocal(log, log.Level.String())
+		dag1_log.NewLocal(log, log.Level.String())
 		logger = logrus.NewEntry(log)
 	}
 

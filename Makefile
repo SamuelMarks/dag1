@@ -1,4 +1,4 @@
-BUILD_TAGS?=lachesis
+BUILD_TAGS?=dag1
 export DOCKER?=docker
 export GLIDE?=glide
 export GO?=go
@@ -20,19 +20,19 @@ vendor:
 # install compiles and places the binary in GOPATH/bin
 install:
 	$(GO) install --ldflags '-extldflags "-static"' \
-		--ldflags "-X github.com/Fantom-foundation/go-lachesis/src/version.GitCommit=`git rev-parse HEAD`" \
-		./cmd/lachesis
+		--ldflags "-X github.com/SamuelMarks/dag1/src/version.GitCommit=`git rev-parse HEAD`" \
+		./cmd/dag1
 	$(GO) install --ldflags '-extldflags "-static"' \
-		--ldflags "-X github.com/Fantom-foundation/go-lachesis/src/version.GitCommit=`git rev-parse HEAD`" \
+		--ldflags "-X github.com/SamuelMarks/dag1/src/version.GitCommit=`git rev-parse HEAD`" \
 		./cmd/network
 
 # build compiles and places the binary in /build
 build:
 	CGO_ENABLED=0 $(GO) build \
-		--ldflags "-X github.com/Fantom-foundation/go-lachesis/src/version.GitCommit=`git rev-parse HEAD`" \
-		-o build/lachesis ./cmd/lachesis/main.go
+		--ldflags "-X github.com/SamuelMarks/dag1/src/version.GitCommit=`git rev-parse HEAD`" \
+		-o build/dag1 ./cmd/dag1/main.go
 	CGO_ENABLED=0 $(GO) build \
-		--ldflags "-X github.com/Fantom-foundation/go-lachesis/src/version.GitCommit=`git rev-parse HEAD`" \
+		--ldflags "-X github.com/SamuelMarks/dag1/src/version.GitCommit=`git rev-parse HEAD`" \
 		-o build/network ./cmd/network/
 
 # dist builds binaries for all platforms and packages them for distribution

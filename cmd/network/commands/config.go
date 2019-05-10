@@ -1,10 +1,10 @@
 package commands
 
-import "github.com/Fantom-foundation/go-lachesis/src/lachesis"
+import "github.com/SamuelMarks/dag1/src/dag1"
 
 //CLIConfig contains configuration for the Run command
 type CLIConfig struct {
-	Lachesis lachesis.LachesisConfig `mapstructure:",squash"`
+	DAG1 dag1.DAG1Config `mapstructure:",squash"`
 	NbNodes  int                     `mapstructure:"nodes"`
 	SendTxs  int                     `mapstructure:"send-txs"`
 	Stdin    bool                    `mapstructure:"stdin"`
@@ -14,7 +14,7 @@ type CLIConfig struct {
 //NewDefaultCLIConfig creates a CLIConfig with default values
 func NewDefaultCLIConfig() *CLIConfig {
 	return &CLIConfig{
-		Lachesis: *lachesis.NewDefaultConfig(),
+		DAG1: *dag1.NewDefaultConfig(),
 		NbNodes:  4,
 		SendTxs:  0,
 		Stdin:    false,

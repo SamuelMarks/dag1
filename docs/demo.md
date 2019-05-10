@@ -1,7 +1,7 @@
 **[Standalone components](#standalone-components) 1**
 
-> [Lachesis Logs (Consensus log
-> output)](#lachesis-logs-consensus-log-output) 2
+> [DAG1 Logs (Consensus log
+> output)](#dag1-logs-consensus-log-output) 2
 >
 > [Connecting](#connecting) 2
 >
@@ -62,7 +62,7 @@
 Standalone components
 =====================
 
-Lachesis Logs (Consensus log output)
+DAG1 Logs (Consensus log output)
 ------------------------------------
 
 ### Connecting
@@ -80,7 +80,7 @@ Password: f4nt0m
 
 <img src="./demo/image3.png" style="width:6.27083in;height:2.08333in" />
 
-All log output from the Lachesis node will appear on the screen. Can
+All log output from the DAG1 node will appear on the screen. Can
 demonstrate consensus events.
 
 VM Logs (Virtual Machine output)

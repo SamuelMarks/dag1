@@ -1,5 +1,5 @@
-// Package lachesis_log lachesis hook to logrus
-package lachesis_log
+// Package dag1_log dag1 hook to logrus
+package dag1_log
 
 import (
 	"fmt"

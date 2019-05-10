@@ -3,7 +3,7 @@ package common
 
 import (
 	"encoding/hex"
-	"github.com/Fantom-foundation/go-lachesis/src/common/hexutil"
+	"github.com/SamuelMarks/dag1/src/common/hexutil"
 )
 
 // ToHex returns the hex representation of b, prefixed with '0x'.

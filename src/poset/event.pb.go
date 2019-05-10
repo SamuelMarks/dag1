@@ -6,7 +6,7 @@ package poset
 import proto "github.com/golang/protobuf/proto"
 import fmt "fmt"
 import math "math"
-import peers "github.com/Fantom-foundation/go-lachesis/src/peers"
+import peers "github.com/SamuelMarks/dag1/src/peers"
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal

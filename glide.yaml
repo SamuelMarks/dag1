@@ -1,4 +1,4 @@
-package: github.com/Fantom-foundation/go-lachesis
+package: github.com/SamuelMarks/dag1
 import:
 - package: github.com/1lann/cete
   version: 0.2

@@ -3,7 +3,7 @@ package node
 import (
 	"sort"
 	
-	"github.com/Fantom-foundation/go-lachesis/src/peers"
+	"github.com/SamuelMarks/dag1/src/peers"
 )
 
 // FrankyPeerSelector provides selection based on FlagTable of a randomly chosen undermined event

@@ -40,21 +40,21 @@ mkdir -p build/pkg
 docker run --rm  \
     -u `id -u $USER` \
     -e "BUILD_TAGS=$BUILD_TAGS" \
-    -v "$(pwd)":/go/src/github.com/Fantom-foundation/go-lachesis \
-    -w /go/src/github.com/Fantom-foundation/go-lachesis \
+    -v "$(pwd)":/go/src/github.com/SamuelMarks/dag1 \
+    -w /go/src/github.com/SamuelMarks/dag1 \
     offscale/golang-builder-alpine3.8 ./scripts/dist_build.sh
 
-# Add "lachesis" and $VERSION prefix to package name.
+# Add "dag1" and $VERSION prefix to package name.
 rm -rf ./build/dist
 mkdir -p ./build/dist
 for FILENAME in $(find ./build/pkg -mindepth 1 -maxdepth 1 -type f); do
   FILENAME=$(basename "$FILENAME")
-	cp "./build/pkg/${FILENAME}" "./build/dist/lachesis_${VERSION}_${FILENAME}"
+	cp "./build/pkg/${FILENAME}" "./build/dist/dag1_${VERSION}_${FILENAME}"
 done
 
 # Make the checksums.
 pushd ./build/dist
-shasum -a256 ./* > "./lachesis_${VERSION}_SHA256SUMS"
+shasum -a256 ./* > "./dag1_${VERSION}_SHA256SUMS"
 popd
 
 # Done

@@ -69,7 +69,7 @@ Clone the [repository](https://github.com/SamuelMarks/dag1) in the appropriate
 GOPATH subdirectory:
 
 ```bash
-$ d="$GOPATH/src/github.com/Fantom-foundation"
+$ d="$GOPATH/src/github.com/SamuelMarks"
 $ mkdir -p "$d"
 $ git clone https://github.com/SamuelMarks/dag1.git "$d"
 ```
@@ -77,7 +77,7 @@ DAG1 uses [Glide](http://github.com/Masterminds/glide) to manage dependencies.
 
 ```bash
 $ curl https://glide.sh/get | sh
-$ cd "$GOPATH/src/github.com/Fantom-foundation" && glide install
+$ cd "$GOPATH/src/github.com/SamuelMarks" && glide install
 ```
 This will download all dependencies and put them in the **vendor** folder.
 

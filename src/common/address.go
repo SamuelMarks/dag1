@@ -7,8 +7,8 @@ import (
 	"math/big"
 	"reflect"
 
-	"github.com/Fantom-foundation/go-lachesis/src/common/hexutil"
-	"github.com/Fantom-foundation/go-lachesis/src/crypto/sha3"
+	"github.com/SamuelMarks/dag1/src/common/hexutil"
+	"github.com/SamuelMarks/dag1/src/crypto/sha3"
 )
 
 const (

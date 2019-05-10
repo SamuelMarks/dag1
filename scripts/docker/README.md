@@ -1,4 +1,4 @@
-lachesis builder
+dag1 builder
 ================
 
 ## Dependencies
@@ -20,7 +20,7 @@ lachesis builder
 
 ## Docker build command
 
-    docker build --compress --squash --force-rm --tag lachesis .
+    docker build --compress --squash --force-rm --tag dag1 .
 
 ## Docker run command
 
@@ -35,6 +35,6 @@ Just use the script, with last arg specifying node number:
 ## Cleanup
 
     rm -rf nodes peers.json
-    containers="$(docker ps -a --no-trunc --filter name='^/lachesis' --format '{{.Names}}')"
+    containers="$(docker ps -a --no-trunc --filter name='^/dag1' --format '{{.Names}}')"
     docker stop "$containers"
     docker rm  "$containers"

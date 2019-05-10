@@ -1,11 +1,11 @@
 package proxy
 
 import (
-	"github.com/Fantom-foundation/go-lachesis/src/poset"
-	"github.com/Fantom-foundation/go-lachesis/src/proxy/proto"
+	"github.com/SamuelMarks/dag1/src/poset"
+	"github.com/SamuelMarks/dag1/src/proxy/proto"
 )
 
-// AppProxy provides an interface for lachesis to communicate
+// AppProxy provides an interface for dag1 to communicate
 // with the application.
 type AppProxy interface {
 	SubmitCh() chan []byte
@@ -15,9 +15,9 @@ type AppProxy interface {
 	Restore(snapshot []byte) error
 }
 
-// LachesisProxy provides an interface for the application to
-// submit transactions to the lachesis node.
-type LachesisProxy interface {
+// DAG1Proxy provides an interface for the application to
+// submit transactions to the dag1 node.
+type DAG1Proxy interface {
 	CommitCh() chan proto.Commit
 	SnapshotRequestCh() chan proto.SnapshotRequest
 	RestoreCh() chan proto.RestoreRequest

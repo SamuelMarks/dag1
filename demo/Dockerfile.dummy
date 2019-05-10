@@ -1,9 +1,9 @@
 FROM offscale/golang-builder-alpine3.8 as stage0
 
-COPY ./ "$GOPATH/src/github.com/Fantom-foundation/go-lachesis/"
+COPY ./ "$GOPATH/src/github.com/SamuelMarks/dag1/"
 
 RUN mkdir -p /cp_bin /bin \
-    && cd "$GOPATH/src/github.com/Fantom-foundation/go-lachesis" \
+    && cd "$GOPATH/src/github.com/SamuelMarks/dag1" \
     && glide install \
     && cd "cmd/dummy" \
     && go build -ldflags "-linkmode external -extldflags -static -s -w" -a -o /cp_bin/dummy main.go
@@ -21,7 +21,7 @@ RUN apk --no-cache add libc-dev cmake \
     && strip -s /cp_bin/crappy_sh /cp_bin/copy /cp_bin/env /cp_bin/list /cp_bin/dummy
 
 
-FROM scratch as lachesis_base
+FROM scratch as dag1_base
 
 # cp -r /etc/ssl/certs certs, then add to your `docker build`: `--build-arg ca_certificates=certs`
 ARG ca_certificates

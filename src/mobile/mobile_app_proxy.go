@@ -1,8 +1,8 @@
 package mobile
 
 import (
-	"github.com/Fantom-foundation/go-lachesis/src/poset"
-	"github.com/Fantom-foundation/go-lachesis/src/proxy"
+	"github.com/SamuelMarks/dag1/src/poset"
+	"github.com/SamuelMarks/dag1/src/proxy"
 	"github.com/sirupsen/logrus"
 )
 

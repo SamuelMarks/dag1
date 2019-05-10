@@ -11,10 +11,10 @@ $ gomobile init -ndk ~/PATH/TO/ANDROID/NDK
 ### Building android library
 To compile Go package as android library execute
 ```bash
-$ gomobile bind -v -target=android -tags=mobile github.com/Fantom-foundation/go-lachesis/mobile
+$ gomobile bind -v -target=android -tags=mobile github.com/SamuelMarks/dag1/mobile
 ```
 
-## Import the Lachesis Module
+## Import the DAG1 Module
 
 Follow Oliver's answer:   
 https://stackoverflow.com/questions/16682847/how-to-manually-include-external-aar-package-using-new-gradle-android-build-syst

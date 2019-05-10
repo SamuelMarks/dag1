@@ -1,6 +1,6 @@
 // +build !windows,!nacl,!plan9
 
-package lachesis_log
+package dag1_log
 
 import (
 	"fmt"

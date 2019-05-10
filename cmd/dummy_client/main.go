@@ -10,7 +10,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/urfave/cli"
 
-	"github.com/Fantom-foundation/go-lachesis/src/dummy"
+	"github.com/SamuelMarks/dag1/src/dummy"
 )
 
 var (
@@ -42,7 +42,7 @@ var (
 func main() {
 	app := cli.NewApp()
 	app.Name = "dummy"
-	app.Usage = "Dummy Socket Client for Lachesis"
+	app.Usage = "Dummy Socket Client for DAG1"
 	app.Flags = []cli.Flag{
 		NameFlag,
 		ProxyAddressFlag,

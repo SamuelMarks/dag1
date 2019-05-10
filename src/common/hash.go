@@ -9,7 +9,7 @@ import (
 	"math/rand"
 	"reflect"
 
-	"github.com/Fantom-foundation/go-lachesis/src/common/hexutil"
+	"github.com/SamuelMarks/dag1/src/common/hexutil"
 )
 
 const (

@@ -3,8 +3,8 @@ package proxy
 import (
 	"github.com/sirupsen/logrus"
 
-	"github.com/Fantom-foundation/go-lachesis/src/peers"
-	"github.com/Fantom-foundation/go-lachesis/src/poset"
+	"github.com/SamuelMarks/dag1/src/peers"
+	"github.com/SamuelMarks/dag1/src/poset"
 )
 
 // InmemAppProxy implements the AppProxy interface natively
@@ -91,7 +91,7 @@ func (p *InmemAppProxy) Restore(snapshot []byte) error {
  * staff:
  */
 
-// SubmitTx is called by the App to submit a transaction to Lachesis
+// SubmitTx is called by the App to submit a transaction to DAG1
 func (p *InmemAppProxy) SubmitTx(tx []byte) {
 	//have to make a copy, or the tx will be garbage collected and weird stuff
 	//happens in transaction pool

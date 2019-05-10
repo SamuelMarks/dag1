@@ -9,9 +9,9 @@ import (
 	"github.com/allegro/bigcache"
 	log "github.com/sirupsen/logrus"
 
-	"github.com/Fantom-foundation/go-lachesis/src/common"
-	"github.com/Fantom-foundation/go-lachesis/src/kvdb"
-	"github.com/Fantom-foundation/go-lachesis/src/rlp"
+	"github.com/SamuelMarks/dag1/src/common"
+	"github.com/SamuelMarks/dag1/src/kvdb"
+	"github.com/SamuelMarks/dag1/src/rlp"
 )
 
 // secureKeyPrefix is the database key prefix used to store trie node preimages.

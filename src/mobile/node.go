@@ -3,11 +3,11 @@ package mobile
 import (
 	"fmt"
 
-	"github.com/Fantom-foundation/go-lachesis/src/crypto"
-	"github.com/Fantom-foundation/go-lachesis/src/lachesis"
-	"github.com/Fantom-foundation/go-lachesis/src/node"
-	"github.com/Fantom-foundation/go-lachesis/src/peers"
-	"github.com/Fantom-foundation/go-lachesis/src/proxy"
+	"github.com/SamuelMarks/dag1/src/crypto"
+	"github.com/SamuelMarks/dag1/src/dag1"
+	"github.com/SamuelMarks/dag1/src/node"
+	"github.com/SamuelMarks/dag1/src/peers"
+	"github.com/SamuelMarks/dag1/src/proxy"
 	"github.com/sirupsen/logrus"
 )
 
@@ -27,9 +27,9 @@ func New(privKey string,
 	exceptionHandler ExceptionHandler,
 	config *MobileConfig) *Node {
 
-	lachesisConfig := lachesis.NewDefaultConfig()
+	dag1Config := dag1.NewDefaultConfig()
 
-	lachesisConfig.Logger.WithFields(logrus.Fields{
+	dag1Config.Logger.WithFields(logrus.Fields{
 		"nodeAddr": nodeAddr,
 		"peers":    participants,
 		"config":   fmt.Sprintf("%v", config),
@@ -46,7 +46,7 @@ func New(privKey string,
 		return nil
 	}
 
-	lachesisConfig.Key = key
+	dag1Config.Key = key
 
 	// There should be at least two peers
 	if participants.Len() < 2 {
@@ -55,10 +55,10 @@ func New(privKey string,
 		return nil
 	}
 
-	lachesisConfig.Proxy = newMobileAppProxy(commitHandler, exceptionHandler, lachesisConfig.Logger)
-	lachesisConfig.LoadPeers = false
+	dag1Config.Proxy = newMobileAppProxy(commitHandler, exceptionHandler, dag1Config.Logger)
+	dag1Config.LoadPeers = false
 
-	engine := lachesis.NewLachesis(lachesisConfig)
+	engine := dag1.NewDAG1(dag1Config)
 
 	engine.Peers = participants
 
@@ -70,9 +70,9 @@ func New(privKey string,
 
 	return &Node{
 		node:   engine.Node,
-		proxy:  lachesisConfig.Proxy,
+		proxy:  dag1Config.Proxy,
 		nodeID: engine.Node.ID(),
-		logger: lachesisConfig.Logger,
+		logger: dag1Config.Logger,
 	}
 }
 

@@ -10,7 +10,7 @@ import (
 
 	"github.com/sirupsen/logrus"
 
-	"github.com/Fantom-foundation/go-lachesis/src/peer"
+	"github.com/SamuelMarks/dag1/src/peer"
 )
 
 var logger logrus.FieldLogger

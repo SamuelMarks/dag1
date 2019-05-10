@@ -1,0 +1,32 @@
+// setup CPU profiling if config.CPUprofile is pecified
+package commands
+
+import (
+	"os"
+	"os/signal"
+	"runtime/pprof"
+//	"github.com/andrecronje/dag1/cmd/dag1/commands"
+)
+
+func setCPUprofiling(config *CLIConfig) {
+	if config.CPUprofile != "" {
+		f, err := os.Create(config.CPUprofile)
+		if err != nil {
+			config.DAG1.Logger.Fatalf(
+				"Cannot create CPU profiling file %s : %v",
+				config.CPUprofile, err)
+		}
+		pprof.StartCPUProfile(f)
+		defer pprof.StopCPUProfile()
+
+		c := make(chan os.Signal, 1)
+		signal.Notify(c, os.Interrupt)
+		go func() {                                                        
+			for sig := range c {                                             
+				config.DAG1.Logger.Errorf("captured %v, stopping profiler and exiting..", sig)
+				pprof.StopCPUProfile()                                         
+				os.Exit(1)                                                     
+			}                                                                
+		}() 
+	}
+}

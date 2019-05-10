@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package internal;
 
-service LachesisNode {
+service DAG1Node {
   rpc Connect(stream ToServer) returns (stream ToClient) {}
 }
 

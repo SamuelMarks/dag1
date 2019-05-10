@@ -8,13 +8,13 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/Fantom-foundation/go-lachesis/src/peer"
+	"github.com/SamuelMarks/dag1/src/peer"
 )
 
 type env struct {
 	shutdown bool
 	done     chan struct{}
-	handler  *peer.Lachesis
+	handler  *peer.DAG1
 	mtx      sync.Mutex
 	err      []error
 }
@@ -22,7 +22,7 @@ type env struct {
 func newEnv(request, response interface{}, err error,
 	delay, timeout time.Duration, receiver chan *peer.RPC) *env {
 	done := make(chan struct{})
-	handler := peer.NewLachesis(nil, receiver, timeout, timeout)
+	handler := peer.NewDAG1(nil, receiver, timeout, timeout)
 
 	environment := &env{
 		done:    done,
@@ -78,7 +78,7 @@ func (e *env) close(t *testing.T) {
 	}
 }
 
-func TestLachesisSync(t *testing.T) {
+func TestDAG1Sync(t *testing.T) {
 	receiver := make(chan *peer.RPC)
 	env := newEnv(expSyncRequest, expSyncResponse,
 		testError, 0, time.Second, receiver)
@@ -106,7 +106,7 @@ func TestLachesisSync(t *testing.T) {
 	}
 }
 
-func TestLachesisForceSync(t *testing.T) {
+func TestDAG1ForceSync(t *testing.T) {
 	receiver := make(chan *peer.RPC)
 	env := newEnv(expEagerSyncRequest, expEagerSyncResponse,
 		testError, 0, time.Second, receiver)
@@ -134,7 +134,7 @@ func TestLachesisForceSync(t *testing.T) {
 	}
 }
 
-func TestLachesisFastForward(t *testing.T) {
+func TestDAG1FastForward(t *testing.T) {
 	request := &peer.FastForwardRequest{
 		FromID: 0,
 	}
