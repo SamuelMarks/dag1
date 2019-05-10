@@ -1,0 +1,7 @@
+syntax = "proto3";
+package peers;
+
+message PeerMessage {
+  string NetAddr = 1;
+  string PubKeyHex = 2;
+}

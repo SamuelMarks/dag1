@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Binaries for programs and plugins
 *.exe
 *.exe~
@@ -10,3 +11,58 @@
 
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
+=======
+# IDE
+.vscode
+.idea/
+
+# Go prof output
+*.prof
+
+# Go test output
+*/*.test
+*/*.out
+
+# Build output
+build
+dist
+
+# Dependencies
+vendor
+glide.lock
+
+# gomobile compilation output
+*.aar
+*.jar
+
+# lachesis project specific
+scripts/certs
+scripts/nodes
+scripts/peers.json
+scripts/docker/upx
+nodes
+peers.json
+certs
+lachesis_*
+
+# Graphviz and debug related
+*.graph
+*.gv
+*.sorted
+*.finality
+
+# patch and diff files
+*.patch
+*.diff
+
+# archives
+*.tar.gz
+*.tgz
+*.zip
+
+# Backup copies
+*~
+*.bak
+
+.#*
+>>>>>>> 11-apr-dagster
