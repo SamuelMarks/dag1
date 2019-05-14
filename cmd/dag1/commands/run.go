@@ -7,9 +7,9 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/SamuelMarks/dag1/src/dummy"
 	"github.com/SamuelMarks/dag1/src/dag1"
-	"github.com/SamuelMarks/dag1/src/log"
+	"github.com/SamuelMarks/dag1/src/dummy"
+	dag1_log "github.com/SamuelMarks/dag1/src/log"
 	aproxy "github.com/SamuelMarks/dag1/src/proxy"
 	"github.com/SamuelMarks/dag1/tester"
 	"github.com/sirupsen/logrus"
@@ -105,7 +105,7 @@ func runSingleDAG1(config *CLIConfig) error {
 				pdl := engine.Node.GetPendingLoadedEvents()
 				// 3 - number of notes in test; 10 - number of transactions sent at once
 				if ct >= 3*10*config.DAG1.TestN && pdl < 1 {
-					engine.Node.PrintStat() // this is for debug tag only
+					//engine.Node.PrintStat() // this is for debug tag only
 					time.Sleep(10 * time.Second)
 					engine.Node.Shutdown()
 					break
