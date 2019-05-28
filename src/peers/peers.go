@@ -210,6 +210,15 @@ func (p *Peers) EmitNewPeer(peer *Peer) {
 
 /* Utilities */
 
+// Clone creates a new Peers from existing one
+func (p *Peers) Clone() *Peers {
+	peers := NewPeers()
+	for _, p := range p.ByPubKey {
+		peers.AddPeer(NewPeer(p.Message.PubKeyHex, p.Message.NetAddr))
+	}
+	return peers
+}
+
 // Len returns the length of peers
 func (p *Peers) Len() int {
 	p.RLock()
