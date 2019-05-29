@@ -231,6 +231,9 @@ func (p *Peers) ReadByPubKey(key string) (Peer, bool) {
 	p.RLock()
 	defer p.RUnlock()
 	peer, ok := p.ByPubKey[key]
+	if !ok {
+		return Peer{}, ok
+	}
 	return *peer, ok
 }
 
@@ -238,6 +241,9 @@ func (p *Peers) ReadByID(key uint64) (Peer, bool) {
 	p.RLock()
 	defer p.RUnlock()
 	peer, ok := p.ByID[key]
+	if !ok {
+		return Peer{}, ok
+	}
 	return *peer, ok
 }
 
@@ -245,6 +251,9 @@ func (p *Peers) ReadByAddress(key common.Address) (Peer, bool) {
 	p.RLock()
 	defer p.RUnlock()
 	peer, ok := p.ByAddress[key]
+	if !ok {
+		return Peer{}, ok
+	}
 	return *peer, ok
 }
 
@@ -252,6 +261,9 @@ func (p *Peers) ReadByNetAddr(key string) (Peer, bool) {
 	p.RLock()
 	defer p.RUnlock()
 	peer, ok := p.ByNetAddr[key]
+	if !ok {
+		return Peer{}, ok
+	}
 	return *peer, ok
 }
 
