@@ -214,7 +214,7 @@ func (p *Peers) EmitNewPeer(peer *Peer) {
 func (p *Peers) Clone() *Peers {
 	peers := NewPeers()
 	for _, p := range p.ByPubKey {
-		np := NewPeer(p.PubKeyHex, p.NetAddr)
+		np := NewPeer(p.Message.PubKeyHex, p.Message.NetAddr)
 		np.ID = p.ID // we need to retain peer's ID in case a custom one is used
 		peers.AddPeer(np)
 	}
